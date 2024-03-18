@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for panierItem in panierItems %}
+        <div class="panier-item">
+            <h3>{{ panierItem.product.name }}</h3>
+            <p>Prix : {{ panierItem.product.price }}</p>
+            <!-- Ajoutez ici d'autres détails du produit -->
+
+            <form id="add-to-panier-form-{{ panierItem.product.id }}" action="{{ path('add_to_panier', {'productId': panierItem.product.id}) }}" method="post">
+                <button class="add-to-panier-btn" type="submit">Ajouter au panier</button>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}

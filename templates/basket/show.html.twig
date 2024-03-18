@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Basket{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/affichagecrud.css') }}" >
+{% endblock %}
+
+{% block body %}
+    <h1>Basket</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ basket.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ basket.nom }}</td>
+            </tr>
+            <tr>
+                <th>Sous Titre</th>
+                <td>{{ basket.soustitre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ basket.description }}</td>
+            </tr>
+            <tr>
+                <th>Taille</th>
+                <td>
+                    <ul>
+                        {% for taille in basket.tailles %}
+                            <li>{{ taille.taille }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Couleur</th>
+                <td>
+                    <ul>
+                        {% for couleur in basket.couleurs %}
+                            <li>{{ couleur.color }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ basket.prix }} €</td>
+            </tr>
+        <tr>
+            <th>Photo</th>
+            <td>
+                <img class="image" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
+                <img class="image" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}">
+                <img class="image" src="{{ asset('uploads/'~basket.photo3) }}" alt="{{ basket.nom }}">
+                <img class="image" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}">
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_basket_index') }}">back to list</a>
+
+    <a href="{{ path('app_basket_edit', {'id': basket.id}) }}">edit</a>
+
+    {{ include('basket/_delete_form.html.twig') }}
+{% endblock %}
