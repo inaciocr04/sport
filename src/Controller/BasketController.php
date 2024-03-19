@@ -159,21 +159,18 @@ class BasketController extends AbstractController
     public function delete(Request $request, Basket $basket, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$basket->getId(), $request->request->get('_token'))) {
-            if (file_exists('uploads/' . $basket->getPhoto()))
-                // Si oui le supprime
+            if (is_file('uploads/' . $basket->getPhoto())) {
                 unlink('uploads/' . $basket->getPhoto());
-            // Supprime l'entité
-            if (file_exists('uploads/' . $basket->getPhoto2()))
-                // Si oui le supprime
+            }
+            if (is_file('uploads/' . $basket->getPhoto2())) {
                 unlink('uploads/' . $basket->getPhoto2());
-            // Supprime l'entité
-            if (file_exists('uploads/' . $basket->getPhoto3()))
-                // Si oui le supprime
+            }
+            if (is_file('uploads/' . $basket->getPhoto3())) {
                 unlink('uploads/' . $basket->getPhoto3());
-            // Supprime l'entité
-            if (file_exists('uploads/' . $basket->getPhoto4()))
-                // Si oui le supprime
+            }
+            if (is_file('uploads/' . $basket->getPhoto4())) {
                 unlink('uploads/' . $basket->getPhoto4());
+            }
             // Supprime l'entité
             $entityManager->remove($basket);
             $entityManager->flush();

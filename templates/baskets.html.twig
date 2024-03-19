@@ -1,43 +1,31 @@
-{% extends 'base.html.twig' %}
-{% block body %}
+    {% extends 'base.html.twig' %}
+    {% block body %}
 
-    <h2 class="nombre_basket">Chaussures pour Hommes : ({{ baskets|length }})</h2>
-    <div class="block flex gape-50">
-        <aside>
-            <div class="categorie_basket flex gape-10">
-            {% for category in categories %}
-                <a href="{{ path('categorie', {id:category.id}) }}">{{ category.type }}</a>
-            {% endfor %}
-                    <div>
-                        <form action="{{ path('filter_by_tailles') }}" method="POST">
-                            <label for="tailles">Sélectionnez les tailles :</label><br>
-                            {% for taille in tailles %}
-                                <div>
-                                    <input type="checkbox" id="taille{{ taille.id }}" name="tailles[]" value="{{ taille.id }}">
-                                    <label for="taille{{ taille.id }}">{{ taille.taille }}</label>
-                                </div>
-                            {% endfor %}
-                            <button type="submit">Filtrer</button>
-                        </form>
-                    </div>
-            </div>
-        </aside>
-    <section class="article_basket">
-        {% for basket in baskets %}
-{#                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('app_basket_edit', {'id': basket.id}) }}">edit</a>
-                {% endif %} #}
-            <a class="basket" href="{{ path('basket', {id:basket.id}) }}">
-                <img class="image_baskets" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
-                <div class="info_basket">
-                    <h5>{{ basket.nom }}</h5>
-                    <p>{{ basket.couleurs|length }} couleurs</p>
-                    <p class="prix">{{ basket.prix }} €</p>
+        <h2 class="nombre_basket">Chaussures pour Hommes : ({{ baskets|length }})</h2>
+        <div class="block flex gape-50">
+            <aside>
+                <div class="categorie_basket flex gape-10">
+                {% for category in categories %}
+                    <a href="{{ path('categorie', {id:category.id}) }}">{{ category.type }}</a>
+                {% endfor %}
                 </div>
+            </aside>
+        <section class="article_basket">
+            {% for basket in baskets %}
+    {#                 {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_basket_edit', {'id': basket.id}) }}">edit</a>
+                    {% endif %} #}
+                <a class="basket" href="{{ path('basket', {id:basket.id}) }}">
+                    <img class="image_baskets" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
+                    <div class="info_basket">
+                        <h5>{{ basket.nom }}</h5>
+                        <p>{{ basket.couleurs|length }} couleurs</p>
+                        <p class="prix">{{ basket.prix }} €</p>
+                    </div>
 
-            </a>
+                </a>
 
-    {% endfor %}
-    </section>
-    </div>
-{% endblock %}
+        {% endfor %}
+        </section>
+        </div>
+    {% endblock %}

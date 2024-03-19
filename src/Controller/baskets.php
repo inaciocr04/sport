@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Basket;
 use App\Entity\Category;
 use App\Entity\Taille;
+use App\Entity\User;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -60,20 +61,6 @@ class baskets extends AbstractController
             'tailles' => $tailles,
         ]);
     }
-    #[Route('/filter-by-tailles', name: 'filter_by_tailles', methods: ['POST'])]
-    public function filterByTailles(Request $request, BasketRepository $basketRepository, TailleRepository $tailleRepository): Response
-    {
-        $selectedTailles = $request->request->get('tailles', []);
-
-        // Récupérer les baskets qui correspondent aux tailles sélectionnées
-        $baskets = $basketRepository->findByTailles($selectedTailles);
-
-        // Renvoyer la réponse avec les baskets filtrées
-        return $this->render('baskets/index.html.twig', [
-            'baskets' => $baskets,
-        ]);
-    }
-
 
 
 }

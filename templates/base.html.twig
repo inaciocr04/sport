@@ -41,12 +41,14 @@
         </div>
         <div class="flex gape-50 connection">
             {% if app.user %}
-                <strong>{{ app.user.email }}</strong>
-                <a href="{{ path('app_logout') }}">Logout</a>
+                <ul>
+                    <li><strong>{{ app.user.email }}</strong></li>
+                    <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                </ul>
             {% else %}
                 <a class="flex align-center" href="{{ path('app_login') }}"><i class="bi bi-person-fill"></i>Connection</a>
             {% endif %}
-            {#<a class="flex align-center gape-10" href="{{ path('add_to_panier', {'id':baskets.id}) }}"><i class="bi bi-cart-fill"></i>Panier</a>#}
+            <a class="flex align-center gape-10" href=""><i class="bi bi-cart-fill"></i>Panier</a>
         </div>
 
     </nav>

@@ -1,5 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Bienvenue</h1>
+    <header class="flex justify-center align-center">
+        <div class="titre_header flex ">
+            <h1>Bienvenue sur notre site de chaussures</h1>
+        </div>
+        <div class="image_header">
+            <div class="image1">
+
+            </div>
+            <div class="image2">
+
+            </div>
+            <div class="image3">
+
+            </div>
+        </div>
+    </header>
+    <section class="random flex justify-center">
+        <div>
+        <h2>En ce moment :</h2>
+        </div>
+        <div class="block flex gape-50">
+            <section class="article_basket">
+                {% for basket in randomBaskets %}
+                    <a class="basket" href="{{ path('basket', {id: basket.id}) }}">
+                        <img class="image_baskets" src="{{ asset('uploads/' ~ basket.photo) }}" alt="{{ basket.nom }}">
+                        <div class="info_basket">
+                            <h5>{{ basket.nom }}</h5>
+                            <p>{{ basket.couleurs|length }} couleurs</p>
+                            <p class="prix">{{ basket.prix }} €</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            </section>
+        </div>
+    </section>
+
 {% endblock %}

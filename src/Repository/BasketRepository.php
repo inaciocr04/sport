@@ -20,14 +20,11 @@ class BasketRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Basket::class);
     }
-    public function findByTailles(array $tailleIds): array
+    public function getRandomBaskets(int $limit = 3): array
     {
-        $queryBuilder = $this->createQueryBuilder('b')
-            ->join('b.tailles', 't')
-            ->andWhere('t.id IN (:tailleIds)')
-            ->setParameter('tailleIds', $tailleIds);
-
-        return $queryBuilder->getQuery()->getResult();
+        $baskets = $this->findAll();
+        shuffle($baskets);
+        return array_slice($baskets, 0, $limit);
     }
 
     //    /**
