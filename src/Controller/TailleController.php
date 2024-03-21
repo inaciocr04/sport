@@ -78,4 +78,5 @@ class TailleController extends AbstractController
 
         return $this->redirectToRoute('app_taille_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

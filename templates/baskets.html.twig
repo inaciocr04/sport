@@ -5,9 +5,28 @@
         <div class="block flex gape-50">
             <aside>
                 <div class="categorie_basket flex gape-10">
+                    <h4>Catégories disponibles :</h4>
                 {% for category in categories %}
                     <a href="{{ path('categorie', {id:category.id}) }}">{{ category.type }}</a>
                 {% endfor %}
+                </div>
+                <div class="categorie_basket flex gape-10">
+                    <h4>Tailles disponibles :</h4>
+                    <div>
+                        {% for taille in tailles %}
+                                <button><a href="{{ path('baskets_taille', {'tailleId': taille.id}) }}">{{ taille.taille }}</a></button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="categorie_basket flex gape-10">
+                    <h4>Couleurs disponibles :</h4>
+                    <ul>
+                        {# {% for couleurItem in couleurs %}
+                        <li>
+                            <a href="{{ path('baskets_couleur', {'couleurId': couleurItem.id}) }}">{{ couleurItem.color }}</a>
+                        </li>
+                        {% endfor %} #}
+                    </ul>
                 </div>
             </aside>
         <section class="article_basket">

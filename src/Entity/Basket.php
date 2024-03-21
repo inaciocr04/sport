@@ -49,6 +49,8 @@ class Basket
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo4 = null;
 
+    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'basket')]
+    private Collection $panier;
 
     
 
@@ -57,7 +59,7 @@ class Basket
     {
         $this->couleurs = new ArrayCollection();
         $this->tailles = new ArrayCollection();
-        $this->paniers = new ArrayCollection();
+        $this->panier = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -223,6 +225,36 @@ class Basket
     public function setPhoto4(?string $photo4): static
     {
         $this->photo4 = $photo4;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPanier(): Collection
+    {
+        return $this->panier;
+    }
+
+    public function addPanier(Panier $panier): static
+    {
+        if (!$this->panier->contains($panier)) {
+            $this->panier->add($panier);
+            $panier->setBasket($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): static
+    {
+        if ($this->panier->removeElement($panier)) {
+            // set the owning side to null (unless already changed)
+            if ($panier->getBasket() === $this) {
+                $panier->setBasket(null);
+            }
+        }
 
         return $this;
     }

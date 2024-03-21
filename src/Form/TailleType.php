@@ -8,19 +8,41 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class TailleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /*
         $builder
             ->add('taille')
-            /*->add('basket', EntityType::class, [
+            ->add('basket', EntityType::class, [
                 'class' => Basket::class,
                 'choice_label' => 'id',
                 'multiple' => true,
             ])*/
         ;
+        $builder
+            ->add('taille', EntityType::class, [
+                'class' => Taille::class,
+                'choice_label' => 'taille',
+                'placeholder' => 'Choisissez une taille',
+                'required' => false,
+                'mapped' => false,
+            ]);
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            if (!isset($data['taille'])) {
+                $form->remove('taille');
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

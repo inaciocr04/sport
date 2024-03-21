@@ -28,7 +28,7 @@
                     <a href="{{ path('baskets') }}">Toutes les chaussures</a>
                     <div class="flex categories">
                         {% for category in categories %}
-                        <a href="{{ path('categorie', {id:category.id}) }}">{{ category.type }}</a>
+                            <a href="{{ path('categorie', {id:category.id}) }}">{{ category.type }}</a>
                         {% endfor %}
                     </div>
                 </div>
@@ -48,7 +48,7 @@
             {% else %}
                 <a class="flex align-center" href="{{ path('app_login') }}"><i class="bi bi-person-fill"></i>Connection</a>
             {% endif %}
-            <a class="flex align-center gape-10" href=""><i class="bi bi-cart-fill"></i>Panier</a>
+            <a class="flex align-center gape-10" href="{{ path('panier') }}"><i class="bi bi-cart-fill"></i>Panier</a>
         </div>
 
     </nav>

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,14 +24,5 @@ class StaticPages extends AbstractController
 
         ]);
     }
-    #[Route('/apropos', name: 'apropos')]
-    public function apropos(): Response
-    {
-        return $this->render('home.html.twig', [
-            'titre' => 'Bienvenue sur ma page a propos',
-            'description' => 'Voila une courte description'
-        ]);
-    }
-
 
 }

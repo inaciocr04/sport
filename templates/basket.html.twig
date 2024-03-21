@@ -26,6 +26,10 @@
                     <li class="taille_seul">{{ taille.taille }}</li>
                 {% endfor %}
             </ul>
+            <form action="{{ path('add_to_cart', {'basketId': basket.id}) }}" method="post">
+                <button type="submit">Add to Cart</button>
+            </form>
+
 
         </div>
     </div>

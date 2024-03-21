@@ -3,12 +3,19 @@
 {% block body %}
     <h1>Contenu de mon panier</h1>
 
-    {% if baskets is not empty %}
-        <ul>
-            {% for basket in baskets %}
-                <li>{{ basket.nom }} - {{ basket.prix }}</li>
-            {% endfor %}
-        </ul>
+    {% if paniers is not empty %}
+        {% for panier in paniers %}
+            {% if panier.getBasket() is not null %}
+                <div class="info_basket">
+                <h5>{{ panier.getBasket().nom }}</h5>
+                <img class="image_baskets" src="{{ asset('uploads/' ~ panier.getBasket().photo) }}" alt="{{ panier.getBasket().nom }}">
+                <a href="{{ path('supp_element_panier', {'id': panier.id}) }}">Supprimer</a>
+                </div>
+
+            {% else %}
+                <p>Ce panier est vide.</p>
+            {% endif %}
+        {% endfor %}
     {% else %}
         <p>Le panier est vide</p>
     {% endif %}

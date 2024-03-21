@@ -4,7 +4,13 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-filter_by_tailles:
-    path: /filter-by-tailles
-    controller: 'App\Controller\baskets::filterByTailles'
-    methods: ['POST']
+add_to_cart:
+    path: '/add-To-Cart/{basketId}'
+    controller: 'App\Controller\PanierController::addToCart'
+
+supp_element_panier:
+    path: '/supp-Element-Panier/{id}'
+    controller: 'App\Controller\PanierController::suppElementPanier'
+supp:
+    path: '/{id}/supp'
+    controller: 'App\Controller\PanierController::delete'

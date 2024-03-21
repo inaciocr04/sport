@@ -1,18 +1,17 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\CouleurRepository;
 use App\Repository\TailleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Basket;
-use App\Entity\Category;
 use App\Entity\Taille;
-use App\Entity\User;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
-use Doctrine\ORM\EntityManagerInterface;
+
 
 class baskets extends AbstractController
 {
@@ -61,6 +60,39 @@ class baskets extends AbstractController
             'tailles' => $tailles,
         ]);
     }
+    #[Route('/baskets/{tailleId}', name: 'baskets_taille')]
+    public function basketsTaille($tailleId, TailleRepository $tailleRepository, CategoryRepository $categoryRepository)
+    {
+        $taille = $tailleRepository->find($tailleId);
+        $tailles = $tailleRepository->findAll();
+        $categories = $categoryRepository->findAll();
 
+        $baskets = $taille->getBasket();
+
+        return $this->render('baskets.html.twig', [
+            'taille' => $taille,
+            'tailles' => $tailles,
+            'baskets' => $baskets,
+            'categories' => $categories,
+        ]);
+    }
+    #[Route('/baskets/{couleurId}', name: 'baskets_couleur')]
+    public function basketsCouleur($couleurId, CouleurRepository $couleurRepository, TailleRepository $tailleRepository, CategoryRepository $categoryRepository)
+    {
+        $couleur = $couleurRepository->find($couleurId);
+        $couleurs = $couleurRepository->findAll();
+        $tailles = $tailleRepository->findAll();
+        $categories = $categoryRepository->findAll();
+
+        $baskets = $couleur->getBasket();
+
+        return $this->render('baskets.html.twig', [
+            'couleur' => $couleur,
+            'couleurs' => $couleurs,
+            'tailles' => $tailles,
+            'baskets' => $baskets,
+            'categories' => $categories,
+        ]);
+    }
 
 }
