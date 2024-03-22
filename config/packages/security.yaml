@@ -43,6 +43,8 @@ security:
         # restreint l'accès à toutes les routes commençant par /castle aux utilisateurs authentifiés et aux admin
         - { path: '^/basket/', roles: [ROLE_ADMIN] }
         - { path: '^/basket/admin/', roles: [ROLE_ADMIN]}
+        - { path: '^/admin/', roles: [ ROLE_ADMIN ] }
+
 
 when@test:
     security:

@@ -14,3 +14,7 @@ supp_element_panier:
 supp:
     path: '/{id}/supp'
     controller: 'App\Controller\PanierController::delete'
+
+baskett:
+    path: '/baskett/{id}'
+    controller: 'App\Controller\PanierController::addToCart'

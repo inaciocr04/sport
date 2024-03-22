@@ -11,6 +11,7 @@ use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,10 +21,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class PanierController extends AbstractController
 {
     #[Route('/admin/panier', name: 'app_panier_index', methods: ['GET'])]
-    public function index(PanierRepository $panierRepository): Response
+    public function index(PanierRepository $panierRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('panier/index.html.twig', [
             'paniers' => $panierRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
@@ -121,7 +123,7 @@ class PanierController extends AbstractController
         ]);
     }
 
-    public function addToCart(Request $request, EntityManagerInterface $entityManager, $basketId): Response
+    public function addToCart(Request $request, EntityManagerInterface $entityManager, $basketId): JsonResponse
     {
         $basket = $entityManager->getRepository(Basket::class)->find($basketId);
         $user = $this->getUser();
@@ -142,8 +144,17 @@ class PanierController extends AbstractController
         $entityManager->persist($panier);
         $entityManager->flush();
 
+        $basketId = $basket->getId();
+
+
+        return new JsonResponse(['message' => 'Article ajouté au panier', 'basketId' => $basketId]);
+
+
+
         // Rediriger l'utilisateur vers la page de panier ou une autre page après l'ajout
-        return $this->redirectToRoute('panier');
+        //return $this->redirectToRoute('baskett', ['id' => $basketId]);
+
+
     }
 
     public function suppElementPanier(Request $request, EntityManagerInterface $entityManager, $id): Response

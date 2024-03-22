@@ -21,11 +21,11 @@
                 <div class="categorie_basket flex gape-10">
                     <h4>Couleurs disponibles :</h4>
                     <ul>
-                        {# {% for couleurItem in couleurs %}
+                        {% for couleur in couleurs %}
                         <li>
-                            <a href="{{ path('baskets_couleur', {'couleurId': couleurItem.id}) }}">{{ couleurItem.color }}</a>
+                            <a href="{{ path('baskets_couleur', {'couleurId': couleur.id}) }}">{{ couleur.color }}</a>
                         </li>
-                        {% endfor %} #}
+                        {% endfor %}
                     </ul>
                 </div>
             </aside>
