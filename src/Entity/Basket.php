@@ -52,6 +52,9 @@ class Basket
     #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'basket')]
     private Collection $panier;
 
+    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'basket')]
+    private Collection $commentaire;
+
     
 
 
@@ -60,6 +63,7 @@ class Basket
         $this->couleurs = new ArrayCollection();
         $this->tailles = new ArrayCollection();
         $this->panier = new ArrayCollection();
+        $this->commentaire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -253,6 +257,36 @@ class Basket
             // set the owning side to null (unless already changed)
             if ($panier->getBasket() === $this) {
                 $panier->setBasket(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaire(): Collection
+    {
+        return $this->commentaire;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): static
+    {
+        if (!$this->commentaire->contains($commentaire)) {
+            $this->commentaire->add($commentaire);
+            $commentaire->setBasket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): static
+    {
+        if ($this->commentaire->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getBasket() === $this) {
+                $commentaire->setBasket(null);
             }
         }
 

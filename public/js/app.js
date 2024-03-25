@@ -1,4 +1,4 @@
-import Toastify from 'toastify-js';
+/*import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css'; // Assurez-vous d'inclure le fichier CSS
 
 const Toastify = window.Toastify;
@@ -15,5 +15,21 @@ button.addEventListener('click', () => {
         gravity: "bottom", // Position de la notification
         backgroundColor: "#4CAF50", // Couleur de fond de la notification
     }).showToast();
-});
+});*/
 
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 3,
+
+    cssMode: true,
+    freeMode: true,
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    mousewheel: true,
+    keyboard: true,
+});

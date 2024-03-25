@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\CategoryRepository;
+use App\Service\PanierLengthService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository,PanierLengthService $panierLengthService): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -38,10 +39,13 @@ class RegistrationController extends AbstractController
 
             return $security->login($user, 'form_login', 'main');
         }
+        $panierLength = $panierLengthService->getPanierLength();
+
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
             'categories' => $categoryRepository->findAll(),
+            'panierLength' =>$panierLength
         ]);
     }
 }

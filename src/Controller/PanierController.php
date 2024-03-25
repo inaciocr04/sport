@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\PanierLengthService;
 
 
 
@@ -98,7 +99,7 @@ class PanierController extends AbstractController
 
 
     #[Route('/panier', name: 'panier')]
-    public function afficherPanier(BasketRepository $basketRepository, CategoryRepository $categoryRepository, PanierRepository $panierRepository): Response
+    public function afficherPanier(BasketRepository $basketRepository, CategoryRepository $categoryRepository, PanierRepository $panierRepository, PanierLengthService $panierLengthService): Response
     {
         // Récupérer l'utilisateur connecté
         $user = $this->getUser();
@@ -116,10 +117,13 @@ class PanierController extends AbstractController
         $baskets = $basketRepository->findAll();
         $categories = $categoryRepository->findAll();
 
+        $panierLength = $panierLengthService->getPanierLength();
+
         return $this->render('panier.html.twig', [
             'paniers' => $paniers,
             'baskets' => $baskets,
             'categories' => $categories,
+            'panierLength' =>$panierLength
         ]);
     }
 

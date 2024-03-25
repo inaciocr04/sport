@@ -18,3 +18,8 @@ supp:
 baskett:
     path: '/baskett/{id}'
     controller: 'App\Controller\PanierController::addToCart'
+
+app_commentaire_delete:
+    path: '/commentaire/{id}/delete'
+    controller: 'App\Controller\CommentaireController::delete'
+    methods: ['POST']

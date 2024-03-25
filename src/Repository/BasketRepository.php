@@ -20,7 +20,7 @@ class BasketRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Basket::class);
     }
-    public function getRandomBaskets(int $limit = 3): array
+    public function getRandomBaskets(int $limit = 21): array
     {
         $baskets = $this->findAll();
         shuffle($baskets);

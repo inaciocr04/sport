@@ -17,22 +17,43 @@
             </div>
         </div>
     </header>
-    <section class="random flex justify-center">
+    <section class="random flex align-center">
         <div>
         <h2>En ce moment :</h2>
         </div>
-        <div class="block flex gape-50">
-            <section class="article_basket">
-                {% for basket in randomBaskets %}
-                    <a class="basket" href="{{ path('basket', {id: basket.id}) }}">
-                        <img class="image_baskets" src="{{ asset('uploads/' ~ basket.photo) }}" alt="{{ basket.nom }}">
-                        <div class="info_basket">
-                            <h5>{{ basket.nom }}</h5>
-                            <p>{{ basket.couleurs|length }} couleurs</p>
-                            <p class="prix">{{ basket.prix }} €</p>
-                        </div>
-                    </a>
-                {% endfor %}
+        <div class=" flex gape-50">
+            <section class="basket_random">
+
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        {% for basket in randomBaskets %}
+                            <div class="random_basket swiper-slide">
+                                <img class="image_baskets_ramdom" src="{{ asset('uploads/' ~ basket.photo) }}" alt="{{ basket.nom }}">
+                                <div class="info_basket_ramdom">
+                                    <h5>{{ basket.nom }}</h5>
+                                    <p>{{ basket.couleurs|length }} couleurs</p>
+                                    <p class="prix_ramdom">{{ basket.prix }} €</p>
+                                    <a style="--clr: #7808d0" class="button" href="{{ path('basket', {id: basket.id}) }}">
+                                        <span class="button__icon-wrapper">
+                                            <svg width="10" class="button__icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 15">
+                                                <path fill="currentColor" d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"></path>
+                                            </svg>
+
+                                            <svg class="button__icon-svg  button__icon-svg--copy" xmlns="http://www.w3.org/2000/svg" width="10" fill="none" viewBox="0 0 14 15">
+                                                <path fill="currentColor" d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"></path>
+                                            </svg>
+                                        </span>
+                                        Voir plus
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
             </section>
         </div>
     </section>
