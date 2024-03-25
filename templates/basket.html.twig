@@ -27,16 +27,12 @@
                 {% endfor %}
             </ul>
             <form action="{{ path('add_to_cart', {'basketId': basket.id}) }}" method="post">
-                <button id="addToCartBtn" type="submit" >Ajouter au panier</button>
+                <button id="add-to-cart">Ajouter au panier</button>
             </form>
 
 
         </div>
     </div>
 
-
-{% endblock %}
-{% block javascript %}
-<script src="{{ asset('js/main.js') }}"></script>
 
 {% endblock %}

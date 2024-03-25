@@ -48,17 +48,17 @@
                 </ul>
             {% else %}
                 <a class="flex align-center" href="{{ path('app_login') }}"><i class="bi bi-person-fill"></i>Connection</a>
+                <a class="flex align-center" href="{{ path('app_register') }}"><i class="bi bi-person-fill"></i>Inscription</a>
             {% endif %}
-            <a class="flex align-center gape-10" href="{{ path('panier') }}"><i class="bi bi-cart-fill"></i>Panier</a>
+            <a class="flex align-center gape-10" href="{{ path('panier') }}"><i class="bi bi-cart"></i>Panier</a>
         </div>
 
     </nav>
         {% block body %}
 
         {% endblock %}
-        {% block javascript %}
-        {% endblock %}
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3.0.0/dist/notyf.min.js"></script>
+
+    <script src="{{ asset('node_modules/toastify-js/src/toastify.js') }}"></script>
 
     </body>
 </html>
