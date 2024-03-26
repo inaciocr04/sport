@@ -22,11 +22,14 @@ use App\Service\PanierLengthService;
 class PanierController extends AbstractController
 {
     #[Route('/admin/panier', name: 'app_panier_index', methods: ['GET'])]
-    public function index(PanierRepository $panierRepository, CategoryRepository $categoryRepository): Response
+    public function index(PanierRepository $panierRepository, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
+        $panierLength = $panierLengthService->getPanierLength();
+
         return $this->render('panier/index.html.twig', [
             'paniers' => $panierRepository->findAll(),
             'categories' => $categoryRepository->findAll(),
+            'panierLength' => $panierLength
         ]);
     }
 

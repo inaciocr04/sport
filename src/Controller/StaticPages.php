@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Panier;
+use App\Entity\Basket;
 
 
 
@@ -30,5 +31,21 @@ class StaticPages extends AbstractController
             'panierLength' => $panierLength,
         ]);
     }
+
+    #[Route('/admin', name: 'admin')]
+    public function admin(CategoryRepository $categoryRepository, BasketRepository $basketRepository, PanierLengthService $panierLengthService): Response
+    {
+        $categories = $categoryRepository->findAll();
+        $randomBaskets = $basketRepository->getRandomBaskets(21);
+
+        $panierLength = $panierLengthService->getPanierLength();
+
+        return $this->render('admin.html.twig', [
+            'categories' => $categories,
+            'randomBaskets'=>$randomBaskets,
+            'panierLength' => $panierLength,
+        ]);
+    }
+
 
 }

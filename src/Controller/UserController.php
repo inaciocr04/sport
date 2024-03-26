@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
+use App\Service\PanierLengthService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +17,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository,CategoryRepository $categoryRepository): Response
+    public function index(UserRepository $userRepository,CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
+        $panierLength = $panierLengthService->getPanierLength();
+
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
             'categories' => $categoryRepository->findAll(),
+            'panierLength' =>$panierLength
         ]);
     }
 
@@ -56,10 +60,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository,PanierLengthService $panierLengthService): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
+        $panierLength = $panierLengthService->getPanierLength();
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             // récupère le mot de passe saisi
@@ -82,6 +89,7 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form,
             'categories' => $categoryRepository->findAll(),
+            'panierLength' => $panierLength
         ]);
     }
 

@@ -14,10 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/commentaire')]
 class CommentaireController extends AbstractController
 {
-    #[Route('/', name: 'app_commentaire_index', methods: ['GET'])]
+    #[Route('/admin/commentaires', name: 'app_commentaire_index', methods: ['GET'])]
     public function index(CommentaireRepository $commentaireRepository, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
         $panierLength = $panierLengthService->getPanierLength();
@@ -30,7 +29,7 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{basketId}', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
+    #[Route('/comentaire/new/{basketId}', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository,PanierLengthService $panierLengthService,$basketId): Response
     {
 
@@ -47,6 +46,34 @@ class CommentaireController extends AbstractController
             $entityManager->persist($commentaire);
             $entityManager->flush();
 
+            return $this->redirectToRoute('basket', ['id' => $basketId], Response::HTTP_SEE_OTHER);
+        }
+
+        $panierLength = $panierLengthService->getPanierLength();
+
+        return $this->render('commentaire/new.html.twig', [
+            'commentaire' => $commentaire,
+            'form' => $form->createView(),
+            'categories' => $categoryRepository->findAll(),
+            'panierLength' => $panierLength,
+            'basketId' => $basketId,
+        ]);
+    }
+    #[Route('/admin/commentaires/new', name: 'app_commentaire_new_admin', methods: ['GET', 'POST'])]
+    public function newAdmin(Request $request, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository,PanierLengthService $panierLengthService): Response
+    {
+
+        $user = $this->getUser();
+
+        $commentaire = new Commentaire();
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentaire->setUser($user);
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+
             return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -54,13 +81,13 @@ class CommentaireController extends AbstractController
 
         return $this->render('commentaire/new.html.twig', [
             'commentaire' => $commentaire,
-            'form' => $form,
+            'form' => $form->createView(),
             'categories' => $categoryRepository->findAll(),
             'panierLength' => $panierLength,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_commentaire_show', methods: ['GET'])]
+    #[Route('/admin/commentaires/{id}', name: 'app_commentaire_show', methods: ['GET'])]
     public function show(Commentaire $commentaire, PanierLengthService $panierLengthService, CategoryRepository $categoryRepository): Response
     {
         $panierLength = $panierLengthService->getPanierLength();
@@ -72,7 +99,7 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_commentaire_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/commentaires/{id}/edit', name: 'app_commentaire_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository,PanierLengthService $panierLengthService): Response
     {
         $form = $this->createForm(CommentaireType::class, $commentaire);
@@ -94,15 +121,14 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'app_commentaire_delete', methods: ['POST'])]
+    #[Route('/admin/commentaires/{id}/delete', name: 'app_commentaire_delete', methods: ['POST'])]
     public function delete(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser();
         if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
             $entityManager->remove($commentaire);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('basket', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
     }
 }

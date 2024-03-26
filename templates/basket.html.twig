@@ -33,12 +33,24 @@
         </div>
     </div>
     <div>
+        <h3>Commentaires ( {{ commentaire|length }} )</h3>
         <a href="{{ path('app_commentaire_new', {'basketId': basket.id}) }}">Ajouter un commentaire</a>
         {% for commentaire in commentaire %}
             <h5>{{ commentaire.user.pseudo }}</h5>
+            {% set maxStars = 5 %}
+            {% set rating = commentaire.note %}
+
+            <div class="rating">
+                {% for i in 1..maxStars %}
+                    {% if i <= rating %}
+                        <span class="star">&#9733;</span>
+                    {% else %}
+                        <span class="star">&#9734;</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
             <p>{{ commentaire.commentaire }}</p>
-            <p>{{ commentaire.note }}</p>
-            <a href="{{ path('app_commentaire_delete', {'id': commentaire.id}) }}" class="btn btn-danger">Supprimer</a>
+
         {% endfor %}
     </div>
 

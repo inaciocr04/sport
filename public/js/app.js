@@ -1,35 +1,39 @@
-/*import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css'; // Assurez-vous d'inclure le fichier CSS
 
-const Toastify = window.Toastify;
 
-// Sélectionnez un élément (par exemple, un bouton)
-const button = document.getElementById('my-button');
+document.addEventListener('DOMContentLoaded', function (){
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownContent = dropdown.querySelector('.dropdown_content');
 
-// Ajoutez un gestionnaire d'événement pour le clic sur le bouton
-button.addEventListener('click', () => {
-    // Affichez une notification avec Toastify
-    Toastify({
-        text: "Objet ajouté au panier",
-        duration: 3000, // Durée de la notification en millisecondes
-        gravity: "bottom", // Position de la notification
-        backgroundColor: "#4CAF50", // Couleur de fond de la notification
-    }).showToast();
-});*/
-
-var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 3,
-
-    cssMode: true,
-    freeMode: true,
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    mousewheel: true,
-    keyboard: true,
+dropdown.addEventListener('mouseenter', () => {
+    dropdownContent.style.display = 'block';
 });
+dropdown.addEventListener('mouseleave', () => {
+    dropdownContent.style.display = 'none';
+});
+
+document.addEventListener('click', (event) => {
+    if (!dropdown.contains(event.target)) {
+        dropdownContent.style.display = 'none';
+    }
+});
+
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+
+        cssMode: true,
+        freeMode: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        mousewheel: true,
+        keyboard: true,
+    });
+})
+
+
+

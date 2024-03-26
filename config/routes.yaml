@@ -19,6 +19,10 @@ baskett:
     path: '/baskett/{id}'
     controller: 'App\Controller\PanierController::addToCart'
 
+app_commentaire_new:
+    path: '/commentaire/new/{basketId}'
+    controller: 'App\Controller\CommentaireController::new'
+
 app_commentaire_delete:
     path: '/commentaire/{id}/delete'
     controller: 'App\Controller\CommentaireController::delete'

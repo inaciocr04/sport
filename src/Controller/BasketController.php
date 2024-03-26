@@ -7,6 +7,7 @@ use App\Entity\Panier;
 use App\Form\BasketType;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
+use App\Service\PanierLengthService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,19 +17,21 @@ use Symfony\Component\Routing\Attribute\Route;
 
 
 
-#[Route('/basket')]
 class BasketController extends AbstractController
 {
-    #[Route('/', name: 'app_basket_index', methods: ['GET'])]
-    public function index(BasketRepository $basketRepository, CategoryRepository $categoryRepository): Response
+    #[Route('/admin/basket', name: 'app_basket_index', methods: ['GET'])]
+    public function index(BasketRepository $basketRepository, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
+        $panierLength = $panierLengthService->getPanierLength();
+
         return $this->render('basket/index.html.twig', [
             'baskets' => $basketRepository->findAll(),
             'categories' => $categoryRepository->findAll(),
+            'panierLength' =>$panierLength
         ]);
     }
 
-    #[Route('/admin/new', name: 'app_basket_new', methods: ['GET', 'POST'])]
+    #[Route('/admin/basket/new', name: 'app_basket_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
     {
         $basket = new Basket();
@@ -89,7 +92,7 @@ class BasketController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/{id}', name: 'app_basket_show', methods: ['GET'])]
+    #[Route('/admin/basket/{id}', name: 'app_basket_show', methods: ['GET'])]
     public function show(Basket $basket, CategoryRepository $categoryRepository): Response
     {
         return $this->render('basket/show.html.twig', [
@@ -99,7 +102,7 @@ class BasketController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/{id}/edit', name: 'app_basket_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/basket/{id}/edit', name: 'app_basket_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Basket $basket, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
     {
         $form = $this->createForm(BasketType::class, $basket);
@@ -156,7 +159,7 @@ class BasketController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/{id}', name: 'app_basket_delete', methods: ['POST'])]
+    #[Route('/admin/basket/{id}', name: 'app_basket_delete', methods: ['POST'])]
     public function delete(Request $request, Basket $basket, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$basket->getId(), $request->request->get('_token'))) {
