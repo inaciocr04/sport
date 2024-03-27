@@ -56,7 +56,7 @@ class baskets extends AbstractController
             'baskets' => $baskets,
             'categories' => $categories,
             'panierLength' => $panierLength,
-            'commentaire' =>$commentaire
+            'commentaire' =>$commentaire,
         ]);
     }
 

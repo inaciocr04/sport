@@ -102,10 +102,11 @@ nav .logo p{
     color: #333;
 }
 
-/* Style pour les liens au survol */
 .dropdown_content a:hover {
-    background-color: #f0f0f0;
+    background-color: lightgray;
 }
+
+/* Style pour les liens au survol */
 
 .connection{
     align-items: center;
@@ -254,11 +255,12 @@ width: 700px;
 }
 .basket_random{
     width: 1400px;
+    height: 700px;
 }
 
 .swiper {
     width: 105%;
-    height: 108%;
+    height: 100%;
 }
 
 .swiper-slide {
@@ -534,6 +536,17 @@ aside{
     gap: 50px;
     width: 1200px;
 }
+.block_image{
+    margin-bottom: 200px;
+}
+.grande_image{
+    position: relative;
+    height: 600px;
+    width: 600px;
+}
+.image_container{
+    position: absolute;
+}
 .image_vignette{
     flex-direction: column;
     gap: 20px;
@@ -552,7 +565,7 @@ aside{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-
+    border: 1px solid black;
 }
 
 .taille_seul{
@@ -562,4 +575,12 @@ aside{
     text-align: center;
     padding: 10px;
     font-weight: bold;
+}
+
+.grande2, .grande3, .grande4{
+    display: none;
+}
+
+.details {
+    flex-direction: column;
 }

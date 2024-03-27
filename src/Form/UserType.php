@@ -18,17 +18,18 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('pseudo')
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank(),
                     new Email(),
                 ],
             ])
-            ->add('roles')
+            /*->add('roles')*/
             ->add('password', PasswordType::class, [
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['min' => 6]), // Exemple de validation de longueur minimale
+                    new Length(['min' => 6]),
                 ],
             ]);
         ;

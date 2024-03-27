@@ -2,16 +2,29 @@
 
 {% block body %}
     <div class="flex article_seul justify-center align-center">
-        <div class="flex gape-10">
+        <div class="flex gape-10 block_image">
             <div class="image_vignette flex">
-                <img class="petite_image" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}">
-                <img class="petite_image" src="{{ asset('uploads/'~basket.photo3) }}" alt="{{ basket.nom }}">
-                <img class="petite_image" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}">
+                <img id="image_petite1" class="petite_image" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
+                <img id="image_petite2" class="petite_image" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}">
+                <img id="image_petite3" class="petite_image" src="{{ asset('uploads/'~basket.photo3) }}" alt="{{ basket.nom }}">
+                <img id="image_petite4" class="petite_image" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}">
             </div>
-            <img class="image_seul" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
-
+            <div class="grande_image">
+                <div id="image_seul1" class="image_container grande1">
+                    <img  class="image_seul" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
+                </div>
+                <div id="image_seul2" class="image_container grande2">
+                    <img class="image_seul" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}">
+                </div>
+                <div id="image_seul3" class="image_container grande3">
+                    <img class="image_seul" src="{{ asset('uploads/'~basket.photo3) }}" alt="{{ basket.nom }}">
+                </div>
+                <div id="image_seul4" class="image_container grande4">
+                    <img class="image_seul" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}">
+                </div>
+            </div>
         </div>
-        <div>
+        <div class="details flex gape-10">
             <h2>{{ basket.nom }}</h2>
             <h4>{{ basket.soustitre }}</h4>
             <div class="flex gape-10">
@@ -34,6 +47,7 @@
     </div>
     <div>
         <h3>Commentaires ( {{ commentaire|length }} )</h3>
+
         <a href="{{ path('app_commentaire_new', {'basketId': basket.id}) }}">Ajouter un commentaire</a>
         {% for commentaire in commentaire %}
             <h5>{{ commentaire.user.pseudo }}</h5>
@@ -43,9 +57,9 @@
             <div class="rating">
                 {% for i in 1..maxStars %}
                     {% if i <= rating %}
-                        <span class="star">&#9733;</span>
+                        <span class="star"><i class="bi bi-star-fill"></i></span>
                     {% else %}
-                        <span class="star">&#9734;</span>
+                        <span class="star"><i class="bi bi-star"></i></span>
                     {% endif %}
                 {% endfor %}
             </div>

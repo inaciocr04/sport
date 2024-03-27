@@ -8,15 +8,19 @@
         <link rel="stylesheet" href="{{ asset('css/affichagecrud.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
 
 
         {% block stylesheets %}
         {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+        <script>
+
+
+
+        </script>
+
     </head>
     <body id="root">
     <nav class="flex align-center">
@@ -54,7 +58,7 @@
                 </ul>
             {% else %}
                 <a class="flex align-center" href="{{ path('app_login') }}"><i class="bi bi-person-fill"></i>Connection</a>
-                <a class="flex align-center" href="{{ path('app_register') }}"><i class="bi bi-person-fill"></i>Inscription</a>
+                <a class="flex align-center" href="{{ path('app_user_new') }}"><i class="bi bi-person-fill"></i>Inscription</a>
             {% endif %}
             <a class="flex align-center gape-10" href="{{ path('panier') }}"><i class="bi bi-cart"></i>Panier( {{ panierLength }} )</a>
         </div>
@@ -89,10 +93,10 @@
 
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     {#
     <script src="{{ asset('node_modules/toastify-js/src/toastify.js') }}"></script>
     #}
+
 
     </body>
 </html>
