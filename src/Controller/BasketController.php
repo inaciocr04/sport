@@ -93,17 +93,19 @@ class BasketController extends AbstractController
     }
 
     #[Route('/admin/basket/{id}', name: 'app_basket_show', methods: ['GET'])]
-    public function show(Basket $basket, CategoryRepository $categoryRepository): Response
+    public function show(Basket $basket, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
+        $panierLength = $panierLengthService->getPanierLength();
+
         return $this->render('basket/show.html.twig', [
             'basket' => $basket,
             'categories' => $categoryRepository->findAll(),
-
+            'panierLength' =>$panierLength
         ]);
     }
 
     #[Route('/admin/basket/{id}/edit', name: 'app_basket_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Basket $basket, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
+    public function edit(Request $request, Basket $basket, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository,PanierLengthService $panierLengthService): Response
     {
         $form = $this->createForm(BasketType::class, $basket);
         $form->handleRequest($request);
@@ -151,11 +153,13 @@ class BasketController extends AbstractController
 
             return $this->redirectToRoute('app_basket_index', [], Response::HTTP_SEE_OTHER);
         }
+        $panierLength = $panierLengthService->getPanierLength();
 
         return $this->render('basket/edit.html.twig', [
             'categories' => $categoryRepository->findAll(),
             'basket' => $basket,
             'form' => $form->createView(),
+            'panierLength' => $panierLength
         ]);
     }
 

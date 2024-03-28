@@ -1,6 +1,36 @@
-{{ form_start(form) }}
-    {{ form_row(form.pseudo) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password) }}
-<button type="submit">{{ button_label|default('Save') }}</button>
+<section class="formulaire_login flex justify-center align-center">
+
+{{ form_start(form, {'attr': {'class': 'form-container'}}) }}
+
+<p class="title">Inscription</p>
+
+<div class="input-group">
+    {{ form_label(form.pseudo) }}
+    {{ form_widget(form.pseudo, {'attr': {'class': 'form-control', 'placeholder': 'Votre pseudo', 'autocomplete': 'text', 'required': true, 'autofocus': true}}) }}
+</div>
+
+<div class="input-group">
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Adresse mail', 'autocomplete': 'email', 'required': true, 'autofocus': true}}) }}
+</div>
+
+<div class="input-group">
+    {{ form_label(form.password) }}
+    {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe', 'autocomplete': 'current-password', 'required': true}}) }}
+    <div class="forgot">
+    </div>
+</div>
+
+<button class="sign" type="submit">S'inscrire</button>
+
+<div class="social-message">
+    <div class="line"></div>
+    <p class="message">Connectez vous a notre plateforme</p>
+    <div class="line"></div>
+</div>
+
+<p class="signup">Si vous avez un compter, connectez-vous
+    <a rel="noopener noreferrer" href="{{ path('app_login') }}" class="">Connexion</a>
+</p>
 {{ form_end(form) }}
+</section>

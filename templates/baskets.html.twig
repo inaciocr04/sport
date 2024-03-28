@@ -12,21 +12,24 @@
                 </div>
                 <div class="categorie_basket flex gape-10">
                     <h4>Tailles disponibles :</h4>
-                    <div>
+                    <div class="all_tailles">
                         {% for taille in tailles %}
-                                <button><a href="{{ path('baskets_taille', {'tailleId': taille.id}) }}">{{ taille.taille }}</a></button>
+                                <button class="taille"><a href="{{ path('baskets_taille', {'tailleId': taille.id}) }}">{{ taille.taille }}</a></button>
                         {% endfor %}
                     </div>
                 </div>
                 <div class="categorie_basket flex gape-10">
-                    <h4>Couleurs disponibles :</h4>
-                    <ul>
+                    <h4 id="toggle">Couleurs disponibles :</h4>
+                    <div class="all_couleurs flex justify-center">
                         {% for couleur in couleurs %}
-                        <li>
-                            <a href="{{ path('baskets_couleur', {'couleurId': couleur.id}) }}">{{ couleur.color }}</a>
-                        </li>
+                        <div class="couleur flex align-center justify-center">
+                            <a href="{{ path('baskets_couleur', {'couleurId': couleur.id}) }}">
+                            <div class="rond_color" style="background-color: {{ couleur.color }}"></div>
+                            <p class="couleur-nom">{{ couleur.color }}</p>
+                            </a>
+                        </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </div>
             </aside>
         <section class="article_basket">

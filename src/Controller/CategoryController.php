@@ -26,7 +26,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/admin/category/new', name: 'app_category_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
@@ -38,23 +38,32 @@ class CategoryController extends AbstractController
 
             return $this->redirectToRoute('app_category_index', [], Response::HTTP_SEE_OTHER);
         }
+        $panierLength = $panierLengthService->getPanierLength();
+
 
         return $this->render('category/new.html.twig', [
             'category' => $category,
             'form' => $form,
+            'categories' => $categoryRepository->findAll(),
+            'panierLength' =>$panierLength
         ]);
     }
 
     #[Route('/admin/category/{id}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Category $category): Response
+    public function show(Category $category, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
+        $panierLength = $panierLengthService->getPanierLength();
+
         return $this->render('category/show.html.twig', [
             'category' => $category,
+            'categories' => $categoryRepository->findAll(),
+            'panierLength' =>$panierLength
+
         ]);
     }
 
     #[Route('/admin/category/{id}/edit', name: 'app_category_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Category $category, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Category $category, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -64,10 +73,14 @@ class CategoryController extends AbstractController
 
             return $this->redirectToRoute('app_category_index', [], Response::HTTP_SEE_OTHER);
         }
+        $panierLength = $panierLengthService->getPanierLength();
+
 
         return $this->render('category/edit.html.twig', [
             'category' => $category,
             'form' => $form,
+            'categories' => $categoryRepository->findAll(),
+            'panierLength' =>$panierLength
         ]);
     }
 

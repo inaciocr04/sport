@@ -35,6 +35,9 @@ body{
     font-family: "Roboto", sans-serif;
     overflow-x: hidden;
 }
+main{
+    min-height: 35vw;
+}
 .wrapper{
     margin: 1%;
 }
@@ -49,6 +52,7 @@ nav{
     background-color: #F6F6F6;
     padding: 20px 40px;
     margin-bottom: 30px;
+
 }
 nav a{
     text-decoration: none;
@@ -101,9 +105,15 @@ nav .logo p{
     text-decoration: none;
     color: #333;
 }
+.dropdown_content ul li{
+    list-style-type: none;
+}
 
 .dropdown_content a:hover {
     background-color: lightgray;
+}
+.dropdown:hover .dropdown_content {
+    display: block;
 }
 
 /* Style pour les liens au survol */
@@ -357,7 +367,7 @@ footer{
     text-align: left;
     justify-items: center;
     padding: 30px;
-    bottom: 0;
+    width: 100%;
 }
 
 footer div{
@@ -529,6 +539,38 @@ aside{
     color: black;
     font-weight: 700;
 }
+
+.none{
+    display: none !important;
+}
+.all_couleurs{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 20px;
+}
+.couleur{
+    width: fit-content;
+    text-transform: capitalize;
+    gap: 5px;
+    flex-direction: column;
+}
+.couleur-nom{
+    font-size: 13px;
+}
+
+
+
+.taille{
+    height: 36px;
+    width: 60px;
+    text-align: center;
+    border: solid 1px #E5E5E5;
+    border-radius: 5px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 18px;
+}
 /* Page Basket seul */
 
 .article_seul{
@@ -566,6 +608,7 @@ aside{
     height: 30px;
     border-radius: 50%;
     border: 1px solid black;
+    filter: brightness(85%);
 }
 
 .taille_seul{

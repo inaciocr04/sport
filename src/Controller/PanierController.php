@@ -34,7 +34,7 @@ class PanierController extends AbstractController
     }
 
     #[Route('/admin/panier/new', name: 'app_panier_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
         $panier = new Panier();
         $form = $this->createForm(PanierType::class, $panier);
@@ -47,22 +47,30 @@ class PanierController extends AbstractController
             return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $panierLength = $panierLengthService->getPanierLength();
+
         return $this->render('panier/new.html.twig', [
             'panier' => $panier,
             'form' => $form,
+            'categories' => $categoryRepository->findAll(),
+            'panierLength' => $panierLength
         ]);
     }
 
     #[Route('/admin/panier/{id}', name: 'app_panier_show', methods: ['GET'])]
-    public function show(Panier $panier): Response
+    public function show(Panier $panier, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
+        $panierLength = $panierLengthService->getPanierLength();
+
         return $this->render('panier/show.html.twig', [
             'panier' => $panier,
+            'categories' => $categoryRepository->findAll(),
+            'panierLength' => $panierLength
         ]);
     }
 
     #[Route('/admin/panier/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Panier $panier, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
         $form = $this->createForm(PanierType::class, $panier);
         $form->handleRequest($request);
@@ -72,10 +80,13 @@ class PanierController extends AbstractController
 
             return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
         }
+        $panierLength = $panierLengthService->getPanierLength();
 
         return $this->render('panier/edit.html.twig', [
             'panier' => $panier,
             'form' => $form,
+            'categories' => $categoryRepository->findAll(),
+            'panierLength' => $panierLength
         ]);
     }
 
@@ -130,7 +141,7 @@ class PanierController extends AbstractController
         ]);
     }
 
-    public function addToCart(Request $request, EntityManagerInterface $entityManager, $basketId): JsonResponse
+    public function addToCart(Request $request, EntityManagerInterface $entityManager, $basketId): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         $basket = $entityManager->getRepository(Basket::class)->find($basketId);
         $user = $this->getUser();
@@ -154,12 +165,11 @@ class PanierController extends AbstractController
         $basketId = $basket->getId();
 
 
-        return new JsonResponse(['message' => 'Article ajouté au panier', 'basketId' => $basketId]);
 
 
 
         // Rediriger l'utilisateur vers la page de panier ou une autre page après l'ajout
-        //return $this->redirectToRoute('baskett', ['id' => $basketId]);
+        return $this->redirectToRoute('baskett', ['id' => $basketId]);
 
 
     }

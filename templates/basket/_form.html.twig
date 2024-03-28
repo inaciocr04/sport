@@ -1,8 +1,11 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
 {% if basket.photo %}
-    <p>Photo actuelle : <img class="vignette" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}"></p>
-    <p>Photo 2 actuelle : <img class="vignette" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}"></p>
+    <p>Photo 1 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}"></p>
+    <p>Photo 2 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}"></p>
+    <p>Photo 3 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo3) }}" alt="{{ basket.nom }}"></p>
+    <p>Photo 4 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}"></p>
+
 {% endif %}
 <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

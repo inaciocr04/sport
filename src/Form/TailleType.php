@@ -27,13 +27,7 @@ class TailleType extends AbstractType
             ])*/
         ;
         $builder
-            ->add('taille', EntityType::class, [
-                'class' => Taille::class,
-                'choice_label' => 'taille',
-                'placeholder' => 'Choisissez une taille',
-                'required' => false,
-                'mapped' => false,
-            ]);
+            ->add('taille');
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();

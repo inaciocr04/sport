@@ -81,3 +81,20 @@ function hoverImage() {
 document.addEventListener('DOMContentLoaded', function() {
     hoverImage();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.querySelector('#toggle');
+    const allCouleur = dropdown.querySelector('.all_couleurs');
+    const dropdownContent = dropdown.querySelector('.custom-dropdown-content');
+
+    toggle.addEventListener('click', () => {
+        allCouleur.classList.toggle('none');
+    });
+
+    window.addEventListener('click', (event) => {
+        if (!dropdown.contains(event.target)) {
+            dropdownContent.classList.remove('show');
+        }
+    });
+});
+
