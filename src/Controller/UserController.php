@@ -99,7 +99,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/user/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/user/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher ,CategoryRepository $categoryRepository,PanierLengthService $panierLengthService): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -125,7 +125,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/edit.html.twig', [
@@ -135,6 +135,7 @@ class UserController extends AbstractController
             'panierLength' => $panierLength
         ]);
     }
+
 
     #[Route('/admin/user/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response

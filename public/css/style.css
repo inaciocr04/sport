@@ -25,6 +25,9 @@ Class Utilitaire
 .gape-50{
     gap: 50px;
 }
+.flex_column{
+    flex-direction: column;
+}
 
 *{
     margin: 0;
@@ -548,6 +551,11 @@ aside{
     grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
     gap: 20px;
 }
+.all_tailles{
+    display: grid;
+    grid-template-columns: repeat(3,50px);
+    gap: 20px;
+}
 .couleur{
     width: fit-content;
     text-transform: capitalize;
@@ -603,6 +611,7 @@ aside{
     height: 80px;
     border-radius: 10px;
 }
+
 .rond_color{
     width: 30px;
     height: 30px;
@@ -611,13 +620,22 @@ aside{
     filter: brightness(85%);
 }
 
+.all_tailles_seul{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(3,120px);
+    gap: 20px;
+}
 .taille_seul{
-    list-style: none;
-    width: 50px;
-    border: 2px solid black;
+    height: 45px;
+    width: 120px;
     text-align: center;
-    padding: 10px;
+    border: solid 1px #E5E5E5;
+    border-radius: 5px;
+    margin-right: 6px;
+    margin-bottom: 6px;
     font-weight: bold;
+    font-size: 18px;
 }
 
 .grande2, .grande3, .grande4{
@@ -626,4 +644,156 @@ aside{
 
 .details {
     flex-direction: column;
+    height: 100%;
+}
+.titre_basket{
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.titre_basket h2{
+    font-size: 30px;
+}
+
+.CartBtn {
+    width: 140px;
+    height: 40px;
+    border-radius: 12px;
+    border: none;
+    background-color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: .5s;
+    overflow: hidden;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.103);
+    position: relative;
+}
+
+.IconContainer {
+    position: absolute;
+    left: -50px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 2;
+    transition-duration: .5s;
+}
+
+.icon {
+    border-radius: 1px;
+}
+
+.text_card {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(17, 17, 17);
+    z-index: 1;
+    transition-duration: .5s;
+    font-size: 1.04em;
+    font-weight: 600;
+}
+
+.CartBtn:hover .IconContainer {
+    transform: translateX(58px);
+    border-radius: 40px;
+    transition-duration: .5s;
+}
+
+.CartBtn:hover .text_card {
+    transform: translate(10px,0px);
+    transition-duration: .5s;
+}
+
+.CartBtn:active {
+    transform: scale(0.95);
+    transition-duration: .5s;
+}
+
+.commentaire{
+    margin-left: 20px;
+}
+.commentaire h3{
+    font-size: 25px;
+}
+.commentaires{
+    background-color: #F6F6F6;
+    margin: 30px 10px;
+    min-height: 150px;
+    border-radius: 20px ;
+    width: 70%;
+}
+.commentaire_pseudo{
+    border-right: 2px solid black;
+    padding: 20px;
+}
+.commentaire_commentaire{
+    margin: 20px;
+}
+.commentaire_commentaire p{
+    margin-top: 20px;
+}
+
+.cta {
+    margin-top: 20px;
+    margin-left: 30px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.cta a{
+    text-decoration: none;
+}
+
+.cta span {
+    padding-bottom: 7px;
+    letter-spacing: 4px;
+    font-size: 14px;
+    padding-right: 15px;
+    text-transform: uppercase;
+}
+
+.cta svg {
+    transform: translateX(-8px);
+    transition: all 0.3s ease;
+}
+
+.cta:hover svg {
+    transform: translateX(0);
+}
+
+.cta:active svg {
+    transform: scale(0.9);
+}
+
+.hover-underline-animation {
+    position: relative;
+    color: black;
+    padding-bottom: 20px;
+}
+
+.hover-underline-animation:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.cta:hover .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
