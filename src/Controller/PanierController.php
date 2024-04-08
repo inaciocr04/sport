@@ -119,15 +119,11 @@ class PanierController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            // Gérer le cas où aucun utilisateur n'est connecté
-            // Redirection vers la page de connexion par exemple
             return $this->redirectToRoute('app_login');
         }
 
-        // Récupérer les paniers de l'utilisateur connecté
         $paniers = $panierRepository->findBy(['user' => $user]);
 
-        // Récupérer toutes les baskets et catégories disponibles
         $baskets = $basketRepository->findAll();
         $categories = $categoryRepository->findAll();
 
@@ -154,9 +150,8 @@ class PanierController extends AbstractController
             throw $this->createAccessDeniedException('User not authenticated');
         }
 
-        // Créer un nouvel objet Panier et associer le panier trouvé avec l'utilisateur
         $panier = new Panier();
-        $panier->setBasket($basket); // Assurez-vous que la méthode setBasket existe dans la classe Panier
+        $panier->setBasket($basket);
         $panier->setUser($user);
 
         $entityManager->persist($panier);
@@ -166,9 +161,6 @@ class PanierController extends AbstractController
 
 
 
-
-
-        // Rediriger l'utilisateur vers la page de panier ou une autre page après l'ajout
         return $this->redirectToRoute('baskett', ['id' => $basketId]);
 
 

@@ -1,0 +1,15 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+{% endblock %}
+
+
+{{ form_start(form) }}
+    <div class="search">
+        {{ form_widget(form.q, {'attr': {'class': 'search__input'}}) }}
+        <button class="search__button" type="submit">
+        <p class="search__icon"><i class="bi bi-search"></i></p>
+        </button>
+    </div>
+{{ form_end(form) }}
+
+

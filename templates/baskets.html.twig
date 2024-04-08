@@ -1,6 +1,8 @@
     {% extends 'base.html.twig' %}
     {% block body %}
-
+        {% include "SearchBarre/_search_data.html.twig" with{
+            form:form
+        } only %}
         <h2 class="nombre_basket">Chaussures pour Hommes : ({{ baskets|length }})</h2>
         <div class="block flex gape-50">
             <aside>

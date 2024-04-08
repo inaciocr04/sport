@@ -237,7 +237,7 @@ width: 700px;
     background-repeat: no-repeat;
     background-size: 250px;
     transform: rotate(10deg);
-    filter: drop-shadow(15px 10px 10px RGB(141, 29, 139,0.80));
+    filter: drop-shadow(15px 10px 10px RGB(141, 29, 139,0.80)) ;
 
 }
 .image3{

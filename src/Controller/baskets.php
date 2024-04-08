@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Repository\CommentaireRepository;
 use App\Repository\CouleurRepository;
 use App\Repository\PanierRepository;
@@ -20,7 +22,7 @@ class baskets extends AbstractController
 {
 
     #[Route('/baskets', name: 'baskets')]
-    public function baskets(BasketRepository $basketRepository, CategoryRepository $categoryRepository, TailleRepository $tailleRepository, CouleurRepository $couleurRepository,PanierRepository $panierRepository, PanierLengthService $panierLengthService): Response
+    public function baskets(Request $request,BasketRepository $basketRepository, CategoryRepository $categoryRepository, TailleRepository $tailleRepository, CouleurRepository $couleurRepository,PanierRepository $panierRepository, PanierLengthService $panierLengthService): Response
     {
         $baskets = $basketRepository->findAll();
         $categories = $categoryRepository->findAll();
@@ -28,9 +30,30 @@ class baskets extends AbstractController
         $couleurs = $couleurRepository->findAll();
         $panierLength = $panierLengthService->getPanierLength();
 
+        $searchData = new SearchData();
+
+        $searchData->q = $request->query->get('q', '');
+
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $baskets = $basketRepository->findBySearch($searchData);
+
+            return $this->render('baskets.html.twig', [
+                'form' => $form->createView(),
+                'baskets' => $baskets,
+                'categories' => $categories,
+                'tailles' => $tailles,
+                'couleurs' => $couleurs,
+                'panierLength' =>$panierLength
+            ]);
+        }
 
 
         return $this->render('baskets.html.twig', [
+            'form' => $form->createView(),
             'baskets' => $baskets,
             'categories' => $categories,
             'tailles' => $tailles,

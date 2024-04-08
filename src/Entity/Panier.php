@@ -26,7 +26,7 @@ class Panier
     private ?Basket $basket = null;
 
     #[ORM\ManyToOne(inversedBy: 'panier')]
-    private ?User $user =null;
+    private ?User $user = null;
 
     public function __construct()
     {

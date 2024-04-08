@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Basket;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -25,6 +26,23 @@ class BasketRepository extends ServiceEntityRepository
         $baskets = $this->findAll();
         shuffle($baskets);
         return array_slice($baskets, 0, $limit);
+    }
+    public function findBySearch(SearchData $searchData)
+    {
+        $queryBuilder = $this->createQueryBuilder('b');
+
+        if (!empty($searchData->q)) {
+            $queryBuilder
+                ->leftJoin('b.category', 'cat')
+                ->leftJoin('b.tailles', 't')
+                ->leftJoin('b.couleurs', 'color')
+                ->andWhere('b.nom LIKE :keyword OR cat.type LIKE :keyword OR t.taille LIKE :keyword OR color.color LIKE :keyword')
+                ->setParameter('keyword', '%' . $searchData->q . '%');
+        }
+        
+        $data = $queryBuilder->getQuery()->getResult();
+
+        return $data;
     }
 
     //    /**
