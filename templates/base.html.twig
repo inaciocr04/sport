@@ -9,8 +9,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script src="{{ asset('js/main.js') }}"></script>
-
+        <script src="{{ asset('js/main.js') }}" defer></script>
 
         {% block stylesheets %}
         {% endblock %}
@@ -48,6 +47,7 @@
 
         </div>
         <div class="flex gape-50 connection">
+
             {% if app.user %}
                 <div class="dropdown">
                     <p class="dropdown-toggle">Mon Compte <strong>{{ app.user.pseudo }}</strong></p>

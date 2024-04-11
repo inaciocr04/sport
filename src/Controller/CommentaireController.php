@@ -99,7 +99,7 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/commentaires/{id}/edit', name: 'app_commentaire_edit', methods: ['GET', 'POST'])]
+    #[Route('/commentaires/{id}/edit', name: 'app_commentaire_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository,PanierLengthService $panierLengthService): Response
     {
         $form = $this->createForm(CommentaireType::class, $commentaire);
@@ -108,7 +108,7 @@ class CommentaireController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('baskett', ['id'=>$commentaire->getBasket()->getId()] , Response::HTTP_SEE_OTHER);
         }
         $panierLength = $panierLengthService->getPanierLength();
 
@@ -121,7 +121,7 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/commentaires/{id}/delete', name: 'app_commentaire_delete', methods: ['POST'])]
+    #[Route('/commentaires/{id}/delete', name: 'app_commentaire_delete', methods: ['POST'])]
     public function delete(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
@@ -129,6 +129,6 @@ class CommentaireController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('baskett', ['id'=>$commentaire->getBasket()->getId()], Response::HTTP_SEE_OTHER);
     }
 }

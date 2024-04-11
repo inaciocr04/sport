@@ -98,3 +98,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const taillesTitre = document.querySelector('#tailles');
+    const allTailles = document.querySelector('.all_tailles');
+    const iconDeroulant = document.querySelector('#icon-deroulant');
+
+    let taillesVisible = false;
+
+    taillesTitre.addEventListener('click', () => {
+        if (!taillesVisible) {
+            allTailles.classList.remove('none')
+            allTailles.style.height = 'auto';
+            iconDeroulant.className = 'bi bi-caret-up-fill';
+            taillesVisible = true;
+        } else {
+            allTailles.classList.add('none')
+            allTailles.style.height = '0';
+            iconDeroulant.className = 'bi bi-caret-down-fill';
+            taillesVisible = false;
+        }
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const couleursTitre = document.querySelector('#couleurs');
+    const allCouleurs = document.querySelector('.all_couleurs');
+    const iconDeroulant = document.querySelector('#icon-deroulant2');
+
+    let couleursVisible = false;
+
+    couleursTitre.addEventListener('click', () => {
+        if (!couleursVisible) {
+            allCouleurs.classList.remove('none')
+            allCouleurs.style.height = '0';
+            iconDeroulant.className = 'bi bi-caret-up-fill';
+            couleursVisible = true;
+        } else {
+            allCouleurs.classList.add('none');
+            allCouleurs.style.height = '0';
+            iconDeroulant.className = 'bi bi-caret-down-fill';
+            couleursVisible = false;
+        }
+    });
+});

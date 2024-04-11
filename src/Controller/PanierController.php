@@ -149,7 +149,12 @@ class PanierController extends AbstractController
         if (!$user instanceof User) {
             throw $this->createAccessDeniedException('User not authenticated');
         }
+        $existingLike = $entityManager->getRepository(Panier::class)->findOneBy(['user' => $user, 'basket' => $basket]);
+        if ($existingLike) {
 
+            $this->addFlash('error', 'Vous avez déjà aimé cette randonnée.');
+            return $this->redirectToRoute('panier');
+        }
         $panier = new Panier();
         $panier->setBasket($basket);
         $panier->setUser($user);

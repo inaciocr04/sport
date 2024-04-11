@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
     <div class="flex article_seul justify-center align-center">
         <div class="flex gape-10 block_image">
@@ -22,6 +23,13 @@
                 <div id="image_seul4" class="image_container grande4">
                     <img class="image_seul" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}">
                 </div>
+            </div>
+        </div>
+        <div class="details flex gape-10">
+            <div class="titre_basket flex flex_column">
+                <h2>{{ basket.nom }}</h2>
+                <h4>{{ basket.soustitre }}</h4>
+                <strong>{{ basket.prix }} €</strong>
                 <form action="{{ path('add_to_cart', {'basketId': basket.id}) }}" method="post">
                     <button class="CartBtn" id="add-to-cart" type="submit">
                     <span class="IconContainer">
@@ -30,13 +38,6 @@
                         <p class="text_card">Ajout panier</p>
                     </button>
                 </form>
-            </div>
-        </div>
-        <div class="details flex gape-10">
-            <div class="titre_basket flex flex_column">
-                <h2>{{ basket.nom }}</h2>
-                <h4>{{ basket.soustitre }}</h4>
-                <strong>{{ basket.prix }} €</strong>
             </div>
             <div class="flex gape-10">
                 {% for couleur in basket.couleurs %}
@@ -56,6 +57,8 @@
     </div>
     <div class="commentaire">
         <h3>Commentaires ( {{ commentaire|length }} )</h3>
+        {% if app.user is empty %}
+        {% else %}
         <button class="cta">
             <a href="{{ path('app_commentaire_new', {'basketId': basket.id}) }}">
             <span class="hover-underline-animation"> Ajouter un commentaire </span>
@@ -75,9 +78,10 @@
             </svg>
             </a>
         </button>
+        {% endif %}
 
         <div class="flex flex_column align-center">
-            {% for commentaire in commentaire %}
+            {% for commentaire in commentaires %}
                 <div class="commentaires flex">
                     <div class="commentaire_pseudo flex align-center">
                         <h5>{{ commentaire.user.pseudo }}</h5>
@@ -94,6 +98,15 @@
                         {% endfor %}
                         <p>{{ commentaire.commentaire }}</p>
 
+                    </div>
+                    <div>
+                        {% if app.user == commentaire.user %}
+                            <button><a href="{{ path('app_commentaire_edit', {id:commentaire.id}) }}">modifier</a></button>
+                            <form method="post" action="{{ path('app_commentaire_delete', {'id': commentaire.id}) }}" onsubmit="return confirm('Etes vous sur de supprimer votre commentaire ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.id) }}">
+                                <button>Supprimer</button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

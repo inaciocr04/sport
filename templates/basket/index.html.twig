@@ -29,8 +29,10 @@
                 <td>{{ basket.soustitre }}</td>
                 <td>{{ basket.description }}</td>
                 <td>{{ basket.prix }}</td>
-                <td><img class="image" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
-                <td><img class="image" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}">
+                <td><img class="image" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}"></td>
+                <td><img class="image" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}"></td>
+                <td><img class="image" src="{{ asset('uploads/'~basket.photo3) }}" alt="{{ basket.nom }}"></td>
+                <td><img class="image" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}"></td>
                 </td>
                 <td>
                     <a href="{{ path('app_basket_show', {'id': basket.id}) }}">show</a>

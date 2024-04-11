@@ -1,36 +1,43 @@
     {% extends 'base.html.twig' %}
+
     {% block body %}
-        {% include "SearchBarre/_search_data.html.twig" with{
-            form:form
-        } only %}
-        <h2 class="nombre_basket">Chaussures pour Hommes : ({{ baskets|length }})</h2>
+        <div class="flex justify-between align-center">
+            <h2 class="nombre_basket">Chaussures pour Hommes : ({{ baskets|length }})</h2>
+            {% include "SearchBarre/_search_data.html.twig" with{
+                form:form
+            } only %}
+        </div>
         <div class="block flex gape-50">
             <aside>
                 <div class="categorie_basket flex gape-10">
-                    <h4>Catégories disponibles :</h4>
-                {% for category in categories %}
-                    <a href="{{ path('categorie', {id:category.id}) }}">{{ category.type }}</a>
-                {% endfor %}
+                        <h4>Catégories disponibles :</h4>
+                        {% for category in categories %}
+                            <a href="{{ path('categorie', {id:category.id}) }}">{{ category.type }}</a>
+                        {% endfor %}
                 </div>
                 <div class="categorie_basket flex gape-10">
-                    <h4>Tailles disponibles :</h4>
-                    <div class="all_tailles">
-                        {% for taille in tailles %}
-                                <button class="taille"><a href="{{ path('baskets_taille', {'tailleId': taille.id}) }}">{{ taille.taille }}</a></button>
-                        {% endfor %}
+                    <div id="tailles">
+                        <h4>Tailles disponibles <i id="icon-deroulant" class="bi bi-caret-down-fill"></i></h4>
+                        <div class="all_tailles none">
+                            {% for taille in tailles %}
+                                    <button class="taille"><a href="{{ path('baskets_taille', {'tailleId': taille.id}) }}">{{ taille.taille }}</a></button>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
                 <div class="categorie_basket flex gape-10">
-                    <h4 id="toggle">Couleurs disponibles :</h4>
-                    <div class="all_couleurs flex justify-center">
-                        {% for couleur in couleurs %}
-                        <div class="couleur flex align-center justify-center">
-                            <a href="{{ path('baskets_couleur', {'couleurId': couleur.id}) }}">
-                            <div class="rond_color" style="background-color: {{ couleur.color }}"></div>
-                            <p class="couleur-nom">{{ couleur.color }}</p>
-                            </a>
+                    <div id="couleurs">
+                        <h4 >Couleurs disponibles <i id="icon-deroulant2" class="bi bi-caret-down-fill"></i></h4>
+                        <div class="all_couleurs flex justify-center none">
+                            {% for couleur in couleurs %}
+                            <div class="couleur flex align-center justify-center">
+                                <a href="{{ path('baskets_couleur', {'couleurId': couleur.id}) }}">
+                                <div class="rond_color" style="background-color: {{ couleur.color }}"></div>
+                                <p class="couleur-nom">{{ couleur.color }}</p>
+                                </a>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
             </aside>

@@ -547,14 +547,24 @@ aside{
     display: none !important;
 }
 .all_couleurs{
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
     gap: 20px;
+    height: 0;
+}
+#couleurs h4{
+    cursor: pointer;
+}
+#tailles h4{
+    cursor: pointer;
 }
 .all_tailles{
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(3,50px);
     gap: 20px;
+    height: 0;
 }
 .couleur{
     width: fit-content;
@@ -565,8 +575,6 @@ aside{
 .couleur-nom{
     font-size: 13px;
 }
-
-
 
 .taille{
     height: 36px;
