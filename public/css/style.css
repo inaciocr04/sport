@@ -42,7 +42,7 @@ main{
     min-height: 35vw;
 }
 .wrapper{
-    margin: 1%;
+    margin: 5%;
 }
 
 
@@ -587,6 +587,50 @@ aside{
     font-weight: bold;
     font-size: 18px;
 }
+
+.likeImage{
+    position: relative;
+}
+.like{
+    top: 0;
+    position: absolute;
+    right: 0px;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+}
+.like form {
+    margin: 0;
+    padding: 0;
+}
+
+.like form button {
+    margin: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    border: none;
+    width: fit-content;
+    height: fit-content;
+}
+
+.like form button i{
+    color: #DC143C;
+    font-size: 35pt;
+    position: relative;
+}
+.like form button strong{
+    position: absolute;
+    font-size: 15pt;
+    top: 23px;
+}
+.bi.bi-heart,
+.bi.bi-heart-fill {
+    transition: all 0.3s ease-in-out;
+}
 /* Page Basket seul */
 
 .article_seul{
@@ -804,4 +848,92 @@ aside{
 .cta:hover .hover-underline-animation:after {
     transform: scaleX(1);
     transform-origin: bottom left;
+}
+
+/* Page des likes */
+
+.deleteButton {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.deleteButton svg {
+    width: 44%;
+}
+.deleteButton:hover {
+    background-color: rgb(237, 56, 56);
+    overflow: visible;
+}
+.bin path {
+    transition: all 0.2s;
+}
+.deleteButton:hover .bin path {
+    fill: #fff;
+}
+.deleteButton:active {
+    transform: scale(0.98);
+}
+.tooltip {
+    --tooltip-color: rgb(41, 41, 41);
+    position: absolute;
+    top: -40px;
+    background-color: var(--tooltip-color);
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 8px 12px;
+    font-weight: 600;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.105);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.5s;
+}
+.tooltip::before {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+    content: "";
+    background-color: var(--tooltip-color);
+    bottom: -10%;
+}
+.deleteButton:hover .tooltip {
+    opacity: 1;
+}
+
+/* Page panier */
+
+.contenu_panier{
+    flex-direction: column;
+}
+.info_basket_panier{
+    margin: 0 auto;
+    height: 300px;
+    width: fit-content;
+    overflow: hidden;
+}
+.info_basket_panier img{
+    height: 400px;
+    width: 320px;
+}
+.info_basket_panier .sous-titre{
+    width: 300px;
+}
+
+.info_basket_panier .quantite i{
+    cursor: pointer;
+    font-size: 30px;
 }

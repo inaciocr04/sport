@@ -39,8 +39,8 @@ function initSwiper() {
 document.addEventListener('DOMContentLoaded', function() {
     initSwiper();
 });
+document.addEventListener('DOMContentLoaded', function() {
 
-function hoverImage() {
     const image1 = document.getElementById('image_seul1');
     const image2 = document.getElementById('image_seul2')
     const image3 = document.getElementById('image_seul3')
@@ -51,35 +51,32 @@ function hoverImage() {
     const imagePetite3 = document.getElementById('image_petite3')
     const imagePetite4 = document.getElementById('image_petite4')
 
-    imagePetite1.addEventListener('mouseenter', () => {
-        image1.style.display = "block";
-        image2.style.display = "none";
-        image3.style.display = "none";
-        image4.style.display = "none";
-    })
+        imagePetite1.addEventListener('mouseenter', () => {
+            image1.style.display = "block";
+            image2.style.display = "none";
+            image3.style.display = "none";
+            image4.style.display = "none";
+        })
 
-    imagePetite2.addEventListener('mouseenter', () => {
-        image1.style.display = "none";
-        image2.style.display = "block";
-        image3.style.display = "none";
-        image4.style.display = "none";
-    })
-    imagePetite3.addEventListener('mouseenter', () => {
-        image1.style.display = "none";
-        image2.style.display = "none";
-        image3.style.display = "block";
-        image4.style.display = "none";
-    })
-    imagePetite4.addEventListener('mouseenter', () => {
-        image1.style.display = "none";
-        image2.style.display = "none";
-        image3.style.display = "none";
-        image4.style.display = "block";
-    })
+        imagePetite2.addEventListener('mouseenter', () => {
+            image1.style.display = "none";
+            image2.style.display = "block";
+            image3.style.display = "none";
+            image4.style.display = "none";
+        })
+        imagePetite3.addEventListener('mouseenter', () => {
+            image1.style.display = "none";
+            image2.style.display = "none";
+            image3.style.display = "block";
+            image4.style.display = "none";
+        })
+        imagePetite4.addEventListener('mouseenter', () => {
+            image1.style.display = "none";
+            image2.style.display = "none";
+            image3.style.display = "none";
+            image4.style.display = "block";
+        })
 
-}
-document.addEventListener('DOMContentLoaded', function() {
-    hoverImage();
 });
 
 
@@ -147,6 +144,77 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const elementsLike = document.querySelectorAll('.Btn-like');
+
+    elementsLike.forEach(btnLike => {
+        const coeur = btnLike.querySelector('.bi.bi-heart');
+        const compteurLike = btnLike.querySelector('.compteur-like');
+
+        btnLike.addEventListener('mouseenter', () => {
+            coeur.classList.add('bi-heart-fill');
+            coeur.classList.remove('bi-heart');
+            compteurLike.style.color = 'white';
+        });
+
+        btnLike.addEventListener('mouseleave', () => {
+            coeur.classList.add('bi-heart');
+            coeur.classList.remove('bi-heart-fill');
+            compteurLike.style.color = 'black';
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const prixTotalElement = document.getElementById('prix-total');
+    let prixTotal = 0;
+    const prixElements = document.querySelectorAll('.prix');
+
+    prixElements.forEach(prixElement => {
+        const prix = parseFloat(prixElement.textContent.replace(' €', ''));
+        prixTotal += prix; // Ajouter le prix à la somme totale
+    });
+
+    // Mettre à jour le texte de l'élément avec le prix total
+    prixTotalElement.textContent = `Prix total: ${prixTotal.toFixed(2)} €`;
+
+    // Sélectionner tous les boutons "plus" et "moins"
+    const plusButtons = document.querySelectorAll('.plus');
+    const moinsButtons = document.querySelectorAll('.moins');
+
+    // Ajouter un gestionnaire d'événements de clic pour chaque bouton "plus"
+    plusButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const quantiteElement = button.parentElement.querySelector('.quantite-value');
+            let quantite = parseInt(quantiteElement.textContent);
+            quantite++;
+            quantiteElement.textContent = quantite;
+
+            const prixElement = button.parentElement.parentElement.querySelector('.prix');
+            const prixUnitaire = parseFloat(prixElement.textContent.replace(' €', ''));
+            prixTotal += prixUnitaire;
+            prixTotalElement.textContent = `Prix total: ${prixTotal.toFixed(2)} €`;
+        });
+    });
+
+    // Ajouter un gestionnaire d'événements de clic pour chaque bouton "moins"
+    moinsButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const quantiteElement = button.parentElement.querySelector('.quantite-value');
+            let quantite = parseInt(quantiteElement.textContent);
+            if (quantite > 1) {
+                quantite--;
+                quantiteElement.textContent = quantite;
+
+                const prixElement = button.parentElement.parentElement.querySelector('.prix');
+                const prixUnitaire = parseFloat(prixElement.textContent.replace(' €', ''));
+                prixTotal -= prixUnitaire;
+                prixTotalElement.textContent = `Prix total: ${prixTotal.toFixed(2)} €`;
+            }
+        });
+    });
+});
+
 
 
 

@@ -48,14 +48,23 @@
                         <a href="{{ path('app_basket_edit', {'id': basket.id}) }}">edit</a>
                     {% endif %} #}
                 <a class="basket" href="{{ path('basket', {id:basket.id}) }}">
-                    <img class="image_baskets" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
+                    <div class="likeImage">
+                        <div>
+                            <img class="image_baskets" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
+                        </div>
+                        <div class="like flex align-center justify-center">
+                            <form action="{{ path('add_likes', {id: basket.id}) }}" method="post">
+                                <button type="submit" class="Btn-like flex align-center justify-center">
+                                    <i class="bi bi-heart"></i>
+                                    <strong class="compteur-like">{{ basket.likes.count }}</strong>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                     <div class="info_basket">
                         <h5>{{ basket.nom }}</h5>
                         <p>{{ basket.couleurs|length }} couleurs</p>
                         <p class="prix">{{ basket.prix }} €</p>
-                        <form action="{{ path('add_likes', {id: basket.id}) }}" method="post">
-                            <button type="submit"><strong>{{ basket.likes.count }}</strong><i class="bi bi-heart-fill"></i></button>
-                        </form>
 
                     </div>
 

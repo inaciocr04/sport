@@ -1,22 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <section class="wrapper">
     <h1>Contenu de mon panier</h1>
+    <div id="prix-total">Prix total: 0 €</div>
+        <div class="contenu_panier flex justify-center gape-50">
+            {% if paniers is not empty %}
+                {% for panier in paniers %}
+                        <div class="info_basket_panier flex gape-50 align-center">
+                            <img class="image_baskets" src="{{ asset('uploads/' ~ panier.basket.photo) }}" alt="{{ panier.basket.nom }}">
+                            <div>
+                                <h5>{{ panier.basket.nom }}</h5>
+                                <p class="sous-titre">{{ panier.basket.soustitre }}</p>
+                                <p class="prix">{{ panier.basket.prix }} €</p>
+                            </div>
+                            <div class="quantite flex align-center gape-10">
+                                <i class="moins bi bi-patch-minus"></i>
+                                <span class="quantite-value">1</span>
+                                <i class=" plus bi bi-patch-plus"></i>
+                            </div>
+                            <form action="{{ path('supp_element_panier', {id: panier.id}) }}" method="post">
+                                <button class="deleteButton">
+                                    <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 50 59"
+                                            class="bin"
+                                    >
+                                        <path
+                                                fill="#B5BAC1"
+                                                d="M0 7.5C0 5.01472 2.01472 3 4.5 3H45.5C47.9853 3 50 5.01472 50 7.5V7.5C50 8.32843 49.3284 9 48.5 9H1.5C0.671571 9 0 8.32843 0 7.5V7.5Z"
+                                        ></path>
+                                        <path
+                                                fill="#B5BAC1"
+                                                d="M17 3C17 1.34315 18.3431 0 20 0H29.3125C30.9694 0 32.3125 1.34315 32.3125 3V3H17V3Z"
+                                        ></path>
+                                        <path
+                                                fill="#B5BAC1"
+                                                d="M2.18565 18.0974C2.08466 15.821 3.903 13.9202 6.18172 13.9202H43.8189C46.0976 13.9202 47.916 15.821 47.815 18.0975L46.1699 55.1775C46.0751 57.3155 44.314 59.0002 42.1739 59.0002H7.8268C5.68661 59.0002 3.92559 57.3155 3.83073 55.1775L2.18565 18.0974ZM18.0003 49.5402C16.6196 49.5402 15.5003 48.4209 15.5003 47.0402V24.9602C15.5003 23.5795 16.6196 22.4602 18.0003 22.4602C19.381 22.4602 20.5003 23.5795 20.5003 24.9602V47.0402C20.5003 48.4209 19.381 49.5402 18.0003 49.5402ZM29.5003 47.0402C29.5003 48.4209 30.6196 49.5402 32.0003 49.5402C33.381 49.5402 34.5003 48.4209 34.5003 47.0402V24.9602C34.5003 23.5795 33.381 22.4602 32.0003 22.4602C30.6196 22.4602 29.5003 23.5795 29.5003 24.9602V47.0402Z"
+                                                clip-rule="evenodd"
+                                                fill-rule="evenodd"
+                                        ></path>
+                                        <path fill="#B5BAC1" d="M2 13H48L47.6742 21.28H2.32031L2 13Z"></path>
+                                    </svg>
+                                </button>
 
-    {% if paniers is not empty %}
-        {% for panier in paniers %}
-            {% if panier.getBasket() is not null %}
-                <div class="info_basket">
-                <h5>{{ panier.getBasket().nom }}</h5>
-                <img class="image_baskets" src="{{ asset('uploads/' ~ panier.getBasket().photo) }}" alt="{{ panier.getBasket().nom }}">
-                <a href="{{ path('supp_element_panier', {'id': panier.id}) }}">Supprimer</a>
-                </div>
-
+                            </form>
+                        </div>
+                {% endfor %}
             {% else %}
-                <p>Ce panier est vide.</p>
+                <p>Le panier est vide</p>
             {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>Le panier est vide</p>
-    {% endif %}
+        </div>
+    </section>
 {% endblock %}

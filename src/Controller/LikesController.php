@@ -114,8 +114,8 @@ class LikesController extends AbstractController
         return $this->redirectToRoute('mesLikes', ['id' => $basketId]);
 
     }
-
-    public function suppElementLikes(Request $request, EntityManagerInterface $entityManager, $id): Response
+    #[Route('/supp/likes/{id}', name: 'supp_likes', requirements: ['id' => '\d+'])]
+    public function suppElementLikes(EntityManagerInterface $entityManager, int $id): Response
     {
         $elementLikes = $entityManager->getRepository(Likes::class)->find($id);
 
