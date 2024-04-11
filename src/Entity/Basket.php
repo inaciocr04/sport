@@ -55,6 +55,9 @@ class Basket
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'basket')]
     private Collection $commentaire;
 
+    #[ORM\OneToMany(targetEntity: Likes::class, mappedBy: 'basket')]
+    private Collection $likes;
+
     
 
 
@@ -64,6 +67,7 @@ class Basket
         $this->tailles = new ArrayCollection();
         $this->panier = new ArrayCollection();
         $this->commentaire = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -287,6 +291,36 @@ class Basket
             // set the owning side to null (unless already changed)
             if ($commentaire->getBasket() === $this) {
                 $commentaire->setBasket(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Likes>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Likes $like): static
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setBasket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Likes $like): static
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getBasket() === $this) {
+                $like->setBasket(null);
             }
         }
 

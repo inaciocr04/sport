@@ -8,6 +8,7 @@ use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentaireRepository;
 use App\Repository\CouleurRepository;
+use App\Repository\LikesRepository;
 use App\Repository\PanierRepository;
 use App\Repository\TailleRepository;
 use App\Service\PanierLengthService;
@@ -239,6 +240,21 @@ class index extends AbstractController
             'baskets' => $baskets,
             'categories' => $categories,
             'panierLength' =>$panierLength
+        ]);
+    }
+    #[Route('/mesLikes', name: 'mesLikes')]
+    public function showMesLikes(BasketRepository $basketRepository,LikesRepository $likesRepository, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
+    {
+        $user = $this->getUser();
+        $categories = $categoryRepository->findAll();
+        $panierLength = $panierLengthService->getPanierLength();
+
+
+        $likes = $likesRepository->findBy(['user'=>$user]);
+        return $this->render('likes.html.twig',[
+            'likes' => $likes,
+            'categories' => $categories,
+            'panierLength' =>$panierLength,
         ]);
     }
 

@@ -50,7 +50,7 @@
 
             {% if app.user %}
                 <div class="dropdown">
-                    <p class="dropdown-toggle">Mon Compte <strong>{{ app.user.pseudo }}</strong></p>
+                    <p class="dropdown-toggle flex align-center gape-10"><i class="bi bi-person"></i>Mon Compte <strong>{{ app.user.pseudo }}</strong></p>
                     <div class="dropdown_content">
                         <ul>
                             <li><a href="{{ path('app_user_edit', {id:app.user.id}) }}">Modifier mon compte</a></li>
@@ -61,7 +61,11 @@
             {% else %}
                 <a class="flex align-center" href="{{ path('app_login') }}"><i class="bi bi-person-fill"></i>Connection</a>
             {% endif %}
-            <a class="flex align-center gape-10" href="{{ path('panier') }}"><i class="bi bi-cart"></i>Panier( {{ panierLength }} )</a>
+            <a href="{{ path('mesLikes') }}"><i class="bi bi-heart"></i></a>
+
+                <a class="flex align-center gape-10" href="{{ path('panier') }}"><i class="bi bi-bag"></i>{{ panierLength }}</a>
+
+
         </div>
 
     </nav>

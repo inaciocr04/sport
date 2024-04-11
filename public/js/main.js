@@ -82,21 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
     hoverImage();
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const toggle = document.querySelector('#toggle');
-    const allCouleur = dropdown.querySelector('.all_couleurs');
-    const dropdownContent = dropdown.querySelector('.custom-dropdown-content');
-
-    toggle.addEventListener('click', () => {
-        allCouleur.classList.toggle('none');
-    });
-
-    window.addEventListener('click', (event) => {
-        if (!dropdown.contains(event.target)) {
-            dropdownContent.classList.remove('show');
-        }
-    });
-});
 
 document.addEventListener('DOMContentLoaded', function () {
     const taillesTitre = document.querySelector('#tailles');
@@ -140,3 +125,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const categorieTitre = document.querySelector('#categorie-titre');
+
+    const categoryId = window.location.pathname.split('/categorie/').pop();
+    const couleurId = window.location.pathname.split('/baskets/couleur/').pop();
+
+    if (categoryId) {
+        const categorieLink = document.querySelector(`.categorie-link[href$="/${categoryId}"]`);
+        if (categorieLink) {
+            const categoryName = categorieLink.getAttribute('data-category-name');
+            categorieTitre.textContent = `${categoryName}`;
+        }
+    }
+    if (couleurId) {
+        const couleurLink = document.querySelector(`.couleur-link[href$="/${couleurId}"]`);
+        if (couleurLink) {
+            const couleurName = couleurLink.getAttribute('data-category-name');
+            categorieTitre.textContent = `${couleurName}`;
+        }
+    }
+});
+
+
+
+
+
