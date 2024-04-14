@@ -36,7 +36,7 @@ class BasketRepository extends ServiceEntityRepository
                 ->leftJoin('b.category', 'cat')
                 ->leftJoin('b.tailles', 't')
                 ->leftJoin('b.couleurs', 'color')
-                ->andWhere('b.nom LIKE :keyword OR cat.type LIKE :keyword OR t.taille LIKE :keyword OR color.color LIKE :keyword')
+                ->andWhere('b.nom LIKE :keyword OR b.prix LIKE :keyword OR cat.type LIKE :keyword OR t.taille LIKE :keyword OR color.color LIKE :keyword')
                 ->setParameter('keyword', '%' . $searchData->q . '%');
         }
         

@@ -3,23 +3,27 @@
 {% block body %}
     <header class="flex justify-center align-center">
         <div class="titre_header flex ">
-            <img src="{{ asset('media/nike-logo-header.png') }}">
+            <img src="{{ asset('media/Nike-logo.png') }}">
         </div>
-        <div class="image_header">
-            <div class="image1">
+        <div class="image_header flex">
+            <div class="flex flex_column justify-between">
+                <div class="image2">
 
+                </div>
+                <div class="image3">
+
+                </div>
             </div>
-            <div class="image2">
+            <div class="flex align-center">
+                <div class="image1">
 
-            </div>
-            <div class="image3">
-
+                </div>
             </div>
         </div>
     </header>
-    <section class="random flex align-center">
+    <section class="random flex align-center justify-center">
         <div>
-        <h2>En ce moment :</h2>
+        <h2>En ce moment</h2>
         </div>
         <div class=" flex gape-50">
             <section class="basket_random">
@@ -33,7 +37,7 @@
                                     <h5>{{ basket.nom }}</h5>
                                     <p>{{ basket.couleurs|length }} couleurs</p>
                                     <p class="prix_ramdom">{{ basket.prix }} €</p>
-                                    <a style="--clr: #7808d0" class="button" href="{{ path('basket', {id: basket.id}) }}">
+                                    <a style="--clr: #7808d0" class="button_voir_plus" href="{{ path('basket', {id: basket.id}) }}">
                                         <span class="button__icon-wrapper">
                                             <svg width="10" class="button__icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 15">
                                                 <path fill="currentColor" d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"></path>
@@ -55,6 +59,27 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </section>
+
+        </div>
+    </section>
+    <section class="flex gape-50 justify-center align-center information_site">
+        <div class="information_site_image flex align-center gape-10">
+            <div>
+            <img src="{{ asset('media/sneaker_description.jpg') }}">
+            </div>
+            <div class="flex gape-10 flex_column">
+            <img src="{{ asset('media/sneaker_2.webp') }}">
+            <img src="{{ asset('media/sneaker_3.avif') }}">
+            </div>
+        </div>
+        <div class="information_texte">
+            <p>Bienvenue sur SneakerSphere, votre destination ultime pour tout ce qui concerne les baskets et les chaussures de sport. Plongez dans un univers où la passion pour les sneakers rencontre l'innovation et le style. Chez SneakerSphere, nous nous efforçons de fournir une sélection soigneusement choisie des dernières tendances en matière de chaussures de sport, mettant en vedette les marques les plus convoitées telles que Nike, Adidas, Puma, et bien d'autres encore à venir.
+
+                Naviguez à travers notre vaste catalogue pour découvrir une gamme variée de modèles, des classiques intemporels aux éditions limitées exclusives. Que vous soyez un amateur de course à pied, un fervent adepte de la mode urbaine ou simplement à la recherche de chaussures confortables pour votre quotidien, SneakerSphere a quelque chose pour vous.
+
+                En plus de notre impressionnante collection de sneakers, nous offrons une expérience d'achat exceptionnelle, avec un service client dévoué et des options de livraison rapides et fiables. Notre équipe est passionnée par les chaussures autant que vous, et nous sommes là pour vous aider à trouver la paire parfaite qui correspond à votre style et à vos besoins.
+
+                Rejoignez-nous dans notre exploration constante de l'univers des sneakers sur SneakerSphere, où chaque pas est une déclaration de style et de performance.</p>
         </div>
     </section>
 
