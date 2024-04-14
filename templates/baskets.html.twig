@@ -9,6 +9,15 @@
         </div>
         <div class="flex gape-50">
             <aside>
+
+                <div class="flex gape-10 mode align-center ">
+                    <div>
+                        <p id="mosaic-btn"><i class="bi bi-grid-fill flex gape-10">Mosaïque</i></p>
+                    </div>
+                    <div>
+                        <p id="list-btn"><i class="bi bi-list-ul flex gape-10">Liste</i></p>
+                    </div>
+                </div>
                 <div class="categorie_basket flex gape-10">
                         <h4>Catégories disponibles :</h4>
                         {% for category in categories %}
@@ -42,7 +51,7 @@
                     </div>
                 </div>
             </aside>
-        <section class="article_basket">
+        <section id="article_basket" class="article_basket">
             {% for basket in baskets %}
     {#                 {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('app_basket_edit', {'id': basket.id}) }}">edit</a>
@@ -63,8 +72,10 @@
                     </div>
                     <div class="info_basket">
                         <h5>{{ basket.nom }}</h5>
-                        <p>{{ basket.couleurs|length }} couleurs</p>
+                        <p class="description">{{ basket.description }}</p>
+                        <p class="couleurs">{{ basket.couleurs|length }} couleurs</p>
                         <p class="prix">{{ basket.prix }} €</p>
+
                     </div>
 
                 </a>

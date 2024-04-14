@@ -175,14 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
         prixTotal += prix; // Ajouter le prix à la somme totale
     });
 
-    // Mettre à jour le texte de l'élément avec le prix total
     prixTotalElement.textContent = `Prix total: ${prixTotal.toFixed(2)} €`;
 
-    // Sélectionner tous les boutons "plus" et "moins"
     const plusButtons = document.querySelectorAll('.plus');
     const moinsButtons = document.querySelectorAll('.moins');
 
-    // Ajouter un gestionnaire d'événements de clic pour chaque bouton "plus"
     plusButtons.forEach(button => {
         button.addEventListener('click', () => {
             const quantiteElement = button.parentElement.querySelector('.quantite-value');
@@ -197,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Ajouter un gestionnaire d'événements de clic pour chaque bouton "moins"
     moinsButtons.forEach(button => {
         button.addEventListener('click', () => {
             const quantiteElement = button.parentElement.querySelector('.quantite-value');
@@ -212,6 +208,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 prixTotalElement.textContent = `Prix total: ${prixTotal.toFixed(2)} €`;
             }
         });
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const articleBasket = document.getElementById("article_basket");
+    const listBtn = document.getElementById("list-btn");
+    const mosaicBtn = document.getElementById("mosaic-btn");
+
+    mosaicBtn.addEventListener("click", () => {
+        articleBasket.classList.add('article_basket');
+        articleBasket.classList.remove('article_basket_liste');
+    });
+
+    listBtn.addEventListener("click", () => {
+        articleBasket.classList.add('article_basket_liste');
+        articleBasket.classList.remove('article_basket');
     });
 });
 
