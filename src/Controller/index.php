@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Panier;
 use App\Form\SearchType;
 use App\Model\SearchData;
 use App\Repository\BasketRepository;
@@ -12,7 +13,9 @@ use App\Repository\LikesRepository;
 use App\Repository\PanierRepository;
 use App\Repository\TailleRepository;
 use App\Service\PanierLengthService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -243,12 +246,15 @@ class index extends AbstractController
         ]);
     }
     #[Route('/mesLikes', name: 'mesLikes')]
-    public function showMesLikes(BasketRepository $basketRepository,LikesRepository $likesRepository, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
+    public function showMesLikes(LikesRepository $likesRepository, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
         $user = $this->getUser();
         $categories = $categoryRepository->findAll();
         $panierLength = $panierLengthService->getPanierLength();
 
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
         $likes = $likesRepository->findBy(['user'=>$user]);
         return $this->render('likes.html.twig',[
@@ -257,6 +263,26 @@ class index extends AbstractController
             'panierLength' =>$panierLength,
         ]);
     }
+    #[Route('/valider-panier', name: 'valider_panier')]
+    public function validerPanier(EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
+    {
+        $user = $this->getUser();
+        $panierRepository = $entityManager->getRepository(Panier::class);
+        $paniers = $panierRepository->findBy(['user' => $user]);
 
+        foreach ($paniers as $panier) {
+            $entityManager->remove($panier);
+        }
+
+        $entityManager->flush();
+        $categories = $categoryRepository->findAll();
+        $panierLength = $panierLengthService->getPanierLength();
+
+        return $this->render('validation_panier.html.twig', [
+            'categories' => $categories,
+            'panierLength' => $panierLength,
+            'paniers' => $paniers,
+        ]);
+    }
 
 }

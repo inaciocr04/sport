@@ -1,11 +1,74 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-{% if basket.photo %}
-    <p>Photo 1 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}"></p>
-    <p>Photo 2 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}"></p>
-    <p>Photo 3 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo3) }}" alt="{{ basket.nom }}"></p>
-    <p>Photo 4 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}"></p>
+<div class="form_global">
+    {{ form_start(form) }}
+    <div class=" flex gape-30 flex_column">
+        <div class="flex gap-70">
+            <label>
+                <p>Nom de votre paire</p>
+                {{ form_widget(form.nom, { 'attr': {'class': 'input', 'placeholder': ''} }) }}
+            </label>
+            <label>
+                <p>Sous titre de votre paire</p>
+                {{ form_widget(form.sous_titre, { 'attr': {'class': 'input', 'placeholder': ''} }) }}
+            </label>
+        </div>
+            <label class="description_form">
+                <p>Description de votre paire</p>
+                {{ form_widget(form.description, { 'attr': {'class': 'texterea', 'placeholder': ''} }) }}
+            </label>
+            <div class=" flex flex_column gape-30">
+                <div class="flex gap-70">
+                    <div>
+                    <label>
+                        <p>Première photo de votre paire</p>
+                        {{ form_widget(form.photo )}}
+                    </label>
+                    <label>
+                        <p>Deuxième photo de votre paire</p>
+                        {{ form_widget(form.photo2 )}}
+                    </label>
+                    </div>
+                    <div>
+                    <label>
+                        <p>Troisième photo de votre paire</p>
+                        {{ form_widget(form.photo3 )}}
+                    </label>
+                    <label>
+                        <p>Quatrième photo de votre paire</p>
+                        {{ form_widget(form.photo4 )}}
+                    </label>
+                    </div>
+                </div>
+                    <div class="flex gap-70">
+                        <label>
+                        <p>Votre prix</p>
+                            {{ form_widget(form.prix, { 'attr': {'class': 'input', 'placeholder': ''} }) }}
+                        </label>
+                        <label>
+                            <p>Catégorie</p>
+                            {{ form_widget(form.category, { 'attr': {'class': 'input', 'placeholder': ''} }) }}
+                        </label>
+                    </div>
 
-{% endif %}
-<button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+                    <label>
+                        <p>Choix des couleurs</p>
+                        {{ form_widget(form.couleurs) }}
+                    </label>
+                <label>
+                    <p>Choix des tailles </p>
+                    {{ form_widget(form.tailles) }}
+                </label>
+            </div>
+        {% if basket.photo %}
+            <div class="flex">
+            <p>Photo 1 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}"></p>
+            <p>Photo 2 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo2) }}" alt="{{ basket.nom }}"></p>
+            <p>Photo 3 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo3) }}" alt="{{ basket.nom }}"></p>
+            <p>Photo 4 actuelle : <img width="125px" height="auto" class="vignette" src="{{ asset('uploads/'~basket.photo4) }}" alt="{{ basket.nom }}"></p>
+            </div>
+        {% endif %}
+        <div class="flex justify-center">
+            <button class="btn">{{ button_label|default('Ajouter') }}</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

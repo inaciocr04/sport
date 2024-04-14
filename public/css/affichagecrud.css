@@ -1,13 +1,49 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 .image{
-    width: 300px;
+    width: 10vh;
     height: auto;
 }
+.gape-30{
+    gap: 30px;
+}
+.gap-70{
+    gap: 70px;
+}
+.flex_column{
+    flex-direction: column;
+}
+.margin-0{
+    margin: 0 auto;
+}
+
+/* Formualire ajout de basket */
+
+.form_global{
+    margin: 0 auto;
+    width: fit-content;
+    padding: 20px;
+}
+.input{
+    width: 35vh;
+}
+
+.description_form .texterea{
+    width: 100%;
+    resize: none;
+}
+
 
 /* Formulaire commentaires */
 
+.commentaire_form{
+    width: 100vh;
+    height: 10vh;
+}
 
+#commentaire_note_4 {
+    display: none;
+}
 
 #feedback-page{
     text-align:center;

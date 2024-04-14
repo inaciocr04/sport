@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Taille index{% endblock %}
 
-{% block body %}
+{% block controller %}
     <h1>Taille index</h1>
 
-    <table class="table">
+    <table class="table margin-0">
         <thead>
             <tr>
                 <th>Id</th>
@@ -18,9 +18,9 @@
             <tr>
                 <td>{{ taille.id }}</td>
                 <td>{{ taille.taille }}</td>
-                <td>
-                    <a href="{{ path('app_taille_show', {'id': taille.id}) }}">show</a>
+                <td class="flex gape-10">
                     <a href="{{ path('app_taille_edit', {'id': taille.id}) }}">edit</a>
+                    {{ include('taille/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

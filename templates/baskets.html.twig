@@ -7,7 +7,7 @@
                 form:form
             } only %}
         </div>
-        <div class="block flex gape-50">
+        <div class="flex gape-50">
             <aside>
                 <div class="categorie_basket flex gape-10">
                         <h4>Catégories disponibles :</h4>
@@ -49,7 +49,7 @@
                     {% endif %} #}
                 <a class="basket" href="{{ path('basket', {id:basket.id}) }}">
                     <div class="likeImage">
-                        <div>
+                        <div class="flex align-center block_image_baskets">
                             <img class="image_baskets" src="{{ asset('uploads/'~basket.photo) }}" alt="{{ basket.nom }}">
                         </div>
                         <div class="like flex align-center justify-center">
@@ -65,7 +65,6 @@
                         <h5>{{ basket.nom }}</h5>
                         <p>{{ basket.couleurs|length }} couleurs</p>
                         <p class="prix">{{ basket.prix }} €</p>
-
                     </div>
 
                 </a>

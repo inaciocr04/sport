@@ -32,11 +32,12 @@ class BasketController extends AbstractController
     }
 
     #[Route('/admin/basket/new', name: 'app_basket_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, PanierLengthService $panierLengthService): Response
     {
         $basket = new Basket();
         $form = $this->createForm(BasketType::class, $basket);
         $form->handleRequest($request);
+        $panierLength = $panierLengthService->getPanierLength();
 
         if ($form->isSubmitted() && $form->isValid()) {
                 // Récupère les données téléchargées via le bouton "fichier-image"
@@ -89,6 +90,7 @@ class BasketController extends AbstractController
             'categories' => $categoryRepository->findAll(),
             'basket' => $basket,
             'form' => $form,
+            'panierLength' => $panierLength
         ]);
     }
 

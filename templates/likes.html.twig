@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <section class="article_basket justify-center">
 
     {% for like in likes %}
-        {#                 {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('app_basket_edit', {'id': basket.id}) }}">edit</a>
-                    {% endif %} #}
-        <a class="basket" href="{{ path('basket', {id:like.basket.id}) }}">
+        <div class="likeImage">
+
+        <div class="flex align-center block_image_baskets">
             <img class="image_baskets" src="{{ asset('uploads/'~like.basket.photo) }}" alt="{{ like.basket.nom }}">
+        </div>
             <div class="info_basket">
                 <h5>{{ like.basket.nom }}</h5>
                 <p>{{ like.basket.couleurs|length }} couleurs</p>
@@ -40,8 +41,7 @@
 
                 </form>
             </div>
-
-        </a>
-
+        </div>
     {% endfor %}
+    </section>
 {% endblock %}

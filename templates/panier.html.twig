@@ -2,8 +2,19 @@
 
 {% block body %}
     <section class="wrapper">
-    <h1>Contenu de mon panier</h1>
-    <div id="prix-total">Prix total: 0 €</div>
+        <div class="flex justify-between">
+            <div>
+                <h1>Contenu de mon panier</h1>
+                <div id="prix-total"><p>Prix total:<strong>0 €</strong></p></div>
+            </div>
+            <div>
+                <form action="{{ path('valider_panier') }}" method="post">
+                    <button class="button type1">
+                        <span class="btn-txt">Valider votre panier</span>
+                    </button>
+                </form>
+            </div>
+        </div>
         <div class="contenu_panier flex justify-center gape-50">
             {% if paniers is not empty %}
                 {% for panier in paniers %}

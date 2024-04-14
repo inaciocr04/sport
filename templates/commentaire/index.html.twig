@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Commentaire index{% endblock %}
 
-{% block body %}
+{% block controller %}
     <h1>Commentaire index</h1>
 
-    <table class="table">
+    <table class="table margin-0">
         <thead>
             <tr>
                 <th>Id</th>
@@ -20,9 +20,9 @@
                 <td>{{ commentaire.id }}</td>
                 <td>{{ commentaire.commentaire }}</td>
                 <td>{{ commentaire.note }}</td>
-                <td>
-                    <a href="{{ path('app_commentaire_show', {'id': commentaire.id}) }}">show</a>
+                <td >
                     <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+                    {{ include('commentaire/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

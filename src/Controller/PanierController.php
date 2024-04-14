@@ -4,14 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Panier;
 use App\Entity\Basket;
-use App\Entity\User;
 use App\Form\PanierType;
 use App\Repository\PanierRepository;
 use App\Repository\BasketRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -137,24 +136,22 @@ class PanierController extends AbstractController
         ]);
     }
 
-    public function addToCart(Request $request, EntityManagerInterface $entityManager, $basketId): \Symfony\Component\HttpFoundation\RedirectResponse
+    #[Route('/panier/{id}', name: 'add_panier', requirements: ['id' => '\d+'])]
+    public function addToCart(EntityManagerInterface $entityManager, int $id)
     {
-        $basket = $entityManager->getRepository(Basket::class)->find($basketId);
+        $basket = $entityManager->getRepository(Basket::class)->find($id);
+
+
         $user = $this->getUser();
 
-        if (!$basket) {
-            throw $this->createNotFoundException('Basket not found');
-        }
 
-        if (!$user instanceof User) {
-            throw $this->createAccessDeniedException('User not authenticated');
-        }
         $existingLike = $entityManager->getRepository(Panier::class)->findOneBy(['user' => $user, 'basket' => $basket]);
         if ($existingLike) {
-
-            $this->addFlash('error', 'Vous avez déjà aimé cette randonnée.');
+            $this->addFlash('error', 'Vous avez déjà ajouté ce panier.');
             return $this->redirectToRoute('panier');
         }
+
+
         $panier = new Panier();
         $panier->setBasket($basket);
         $panier->setUser($user);
@@ -162,14 +159,9 @@ class PanierController extends AbstractController
         $entityManager->persist($panier);
         $entityManager->flush();
 
-        $basketId = $basket->getId();
-
-
-
-        return $this->redirectToRoute('baskett', ['id' => $basketId]);
-
-
+        return $this->redirectToRoute('panier', ['id' => $id]);
     }
+
 
     public function suppElementPanier(Request $request, EntityManagerInterface $entityManager, $id): Response
     {
@@ -186,6 +178,7 @@ class PanierController extends AbstractController
         // Rediriger l'utilisateur vers la page du panier
         return $this->redirectToRoute('panier');
     }
+
 
 
 

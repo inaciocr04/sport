@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
+    <div class="flex justify-center gape-50">
         <h3><a href="{{ path('app_basket_index') }}">Gestion des Baskets</a></h3>
         <h3><a href="{{ path('app_category_index') }}">Gestion des Catégories</a></h3>
         <h3><a href="{{ path('app_taille_index') }}">Gestion des Tailles</a></h3>
@@ -10,4 +10,8 @@
         <h3><a href="{{ path('app_commentaire_index') }}">Gestion des Commentaires</a></h3>
         <h3><a href="{{ path('app_panier_index') }}">Gestion des Paniers</a></h3>
     </div>
+    <section style="margin-top: 50px">
+        {% block controller %}
+        {% endblock %}
+    </section>
 {% endblock %}

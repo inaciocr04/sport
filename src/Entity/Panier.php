@@ -28,10 +28,6 @@ class Panier
     #[ORM\ManyToOne(inversedBy: 'panier')]
     private ?User $user = null;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {

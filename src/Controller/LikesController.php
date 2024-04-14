@@ -87,20 +87,6 @@ class LikesController extends AbstractController
         $basket = $entityManager->getRepository(Basket::class)->find($basketId);
         $user = $this->getUser();
 
-        if (!$basket) {
-            throw $this->createNotFoundException('basket not found');
-        }
-
-        if (!$user instanceof User) {
-            throw $this->createAccessDeniedException('User not authenticated');
-        }
-
-        $existingLike = $entityManager->getRepository(Likes::class)->findOneBy(['user' => $user, 'basket' => $basket]);
-        if ($existingLike) {
-
-            $this->addFlash('error', 'Vous avez déjà aimé cette baskets.');
-            return $this->redirectToRoute('mesLikes');
-        }
         $like = new Likes();
         $like->setbasket($basket);
         $like->setUser($user);

@@ -1,27 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Panier index{% endblock %}
 
-{% block body %}
+{% block controller %}
     <h1>Panier index</h1>
 
-    <table class="table">
+    <table class="table margin-0">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nom_panier</th>
-                <th>actions</th>
+                <th>Nom user</th>
+                <th>Nom Basket</th>
             </tr>
         </thead>
         <tbody>
         {% for panier in paniers %}
             <tr>
                 <td>{{ panier.id }}</td>
-                <td>{{ panier.nomPanier }}</td>
-                <td>
-                    <a href="{{ path('app_panier_show', {'id': panier.id}) }}">show</a>
-                    <a href="{{ path('app_panier_edit', {'id': panier.id}) }}">edit</a>
-                </td>
+                <td>{{ panier.user.pseudo }}</td>
+                <td>{{ panier.basket.nom }}</td>
+
             </tr>
         {% else %}
             <tr>

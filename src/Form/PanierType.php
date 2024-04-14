@@ -15,14 +15,13 @@ class PanierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom_panier')
             ->add('basket', EntityType::class, [
                 'class' => Basket::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'pseudo',
             ])
         ;
     }
